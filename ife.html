@@ -1,0 +1,113 @@
+<head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="header">
+            <div class="head">
+                <div class="logo">
+                    Logo
+                </div>
+                <div class="naviga">
+                    <a href="">Github</a>
+                    <a href="">Register</a>
+                    <a href="">Login</a>
+
+                </div>
+            </div>
+    </div>
+    <div class="container">
+        <!-- <div class="banner">
+        </div> -->
+        <div id="banner">
+        <div class="banner">
+            <div class="banner1">
+                <img src="Pic/1.jpg">
+            </div>
+            <div class="banner2">
+                <img src="Pic/2.jpg">
+            </div>
+            <div class="banner3">
+                <img src="Pic/3.jpg">
+            </div>
+            <div class="banner1">
+                <img src="Pic/4.jpg">
+            </div>
+        </div>
+        </div>
+        <div class="nav">
+            <div class="navcen">
+                <ul>
+                    <li class="active"><a >HOME</a></li>
+                    <li><a>PROFILE</a></li>
+                    <li><a>ABOUT</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="active">
+            <section>
+                <article class="art">THIS IS CONTENT1</article>
+                <article class="art">MAYBE CONTENT2</article>
+                <article  class="art">CONTENT3</article>
+            </section>
+            <section>
+                <article>A</article>
+                <article>B</article>
+                <article>C</article>
+                <article>D</article>
+            </section>
+            <section>
+                <article>A</article>
+                <article>B</article>
+                <article>C</article>
+            </section>
+            </div>
+            <div >
+                <section>
+                    <article>PROFILE</article>
+                </section>
+            </div>
+            <div>
+                <section>
+                    <article>ABOUT</article>
+                </section>
+            </div>
+        </div>
+
+    </div>
+    <div class="footer">
+        ©2020 Joanna
+    </div>
+</body>
+
+<script>
+    var tabs = document.querySelectorAll('li');
+    var panels = document.querySelectorAll('.content div');
+    
+    for(i = 0; i < tabs.length; i++) {
+      var tab = tabs[i];
+      setTabHandler(tab, i);
+    }
+    
+    function setTabHandler(tab, tabPos) {
+      tab.onmouseover = function() {
+        for(i = 0; i < tabs.length; i++) {
+          if(tabs[i].getAttribute('class')) {
+            tabs[i].removeAttribute('class');
+          }
+        }
+    
+        tab.setAttribute('class', 'active');
+    
+        for(i = 0; i < panels.length; i++) {
+          if(panels[i].getAttribute('class')) {
+            panels[i].removeAttribute('class');
+          }
+        }
+    
+        panels[tabPos].setAttribute('class', 'active');
+      }
+    }
+    
+    </script>

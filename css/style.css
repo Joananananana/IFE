@@ -1,0 +1,237 @@
+.header{
+    background-color: rgba(0, 0, 0, 0.774);
+    
+}
+.head{
+    width:980px;
+    margin:0 auto;
+    
+}
+.logo{
+    line-height: 2;
+    float: left;
+    color: white;
+    font-size:xx-large;
+    font-weight: bold;
+
+}
+.naviga{
+    padding: 3px 0 0 0;
+    float:right;
+    font-size: small;
+    color: white;
+
+}
+a{
+    color: white;
+}
+.naviga:after{
+    content: '';
+    display: table;
+    clear: both;
+}
+/* 通过伪元素选择器，
+在div后面增加了一个clear:both的元素 */
+.head:after{
+    content: '';
+    display: table;
+    clear: both;
+}
+
+/* .banner{
+    
+    height: 390px;        
+    background: url("1.jpg");        
+    background-size: 50% 100%;        
+    animation: banner 10s infinite;  
+    overflow: hidden;
+} 
+ 
+@keyframes banner {
+            25%{           
+                background: url("2.jpg");          }        
+            50%{            
+                background: url("3.jpg");         }        
+            75%{            
+                background: url("4.jpg"); 
+            }
+        }  
+        
+*/
+#banner{
+    width: 100%;
+    overflow: hidden;
+}
+.banner {
+	width:400%;
+    height:700px;
+    
+    animation:banner 20s ease infinite;
+}
+.banner1,.banner2,.banner3 {
+	width:25%;
+	height:700px;
+	overflow:hidden;
+	float:left;
+}
+.banner1 img,.banner2 img,.banner3 img {
+	width:100%;
+	height:700px;
+	position:relative;
+	
+}
+@keyframes banner {
+	/* 0% {
+	margin-left:0px;
+}
+34% {
+	margin-left:0px;
+}
+39% {
+	margin-left:-100%;
+}
+64% {
+	margin-left:-100%;
+}
+69% {
+	margin-left:-200%;
+}
+84% {
+	margin-left:-200%;
+}
+99% {
+	margin-left:-300%;
+}
+100% {
+	margin-left:-300%;
+} */
+0% {
+	margin-left:0px;
+}
+25% {
+	margin-left:0px;
+}
+50%{
+    margin-left:-100%;
+}
+
+75% {
+	margin-left:-200%;
+}
+
+100% {
+	margin-left:-300%;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.nav{
+    height: 50px;
+    background-color: lightgray;
+    border-bottom:1px solid gray;
+ }
+ 
+.navcen{
+    width: 980px;
+    height: 50px;
+    margin: 0 auto;
+    
+}
+
+ul{
+    margin: 0;
+    padding: 0;
+    
+}
+/* 在一个div加有< ul><li>    
+因为ul有个默认的margin和padding值 
+如果该div中没有设边框 ul默认的值的就会对上一个div有影响 */
+ li{
+    margin-top: 15px;
+    float: left;
+    margin-left: 1px;
+    list-style-type: none;
+    width: 80px;
+    height:34px;
+    background-color: rgba(255, 255, 255, 0.45);
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    border-radius:10px 10px 0 0;
+    text-align: center;
+    line-height: 2;
+    
+}
+li a{
+    color: black;
+}
+li.active{
+    background-color: white;
+    border-bottom: 1px solid white;
+}
+.content{
+    width: 980px;
+    height: 580px;
+    margin:0 auto;
+    position: relative;
+}
+
+.content div{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+    /* 不设置背景颜色无法出现div覆盖效果 */
+}
+.content .active{
+    z-index: 1;
+}
+section{
+    display: flex;
+    margin-left: -10px;
+}
+.content article{
+    height: 150px;
+    line-height: 150px;
+    text-align: center;
+    padding: 10px;
+    margin:10px;
+    flex:1 200px;
+    border: 1px solid gray;
+}
+.art{
+    height: 150px;
+    line-height: 100px;
+    text-align: center;
+    padding: 10px;
+    margin:10px;
+    flex:1.5 150px;
+    border: 1px solid gray;
+}
+.art:nth-of-type(3){
+    flex:1 100px;
+}
+.footer{
+    width: 100%;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.52);
+    font-size: small;
+    line-height: 3;
+    text-align: center;
+    color: white;
+}

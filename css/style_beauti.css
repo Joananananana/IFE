@@ -1,0 +1,410 @@
+.pageA{
+    position: relative;
+    color: rgba(255, 255, 255, 0.774);
+    text-align: center;
+    width: 1600px;
+    height:1000px;
+}
+.imgA{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1600px;
+    height:1000px;
+    
+}
+
+.pageA-title{
+    width: 1000px;
+    position: absolute;
+    top:100px;
+    left: 300px;
+    font-family: sans-serif;
+    font-size: 70px;
+}
+.pageA-title p:nth-of-type(2){
+    font-size: x-large;
+    color: rgba(255, 255, 255, 0.274);
+}
+.pageA-account{
+    width: 1000px;
+    height: 250px;
+    position: absolute;
+    top:540px;
+    left: 300px;
+    margin: 0 auto;
+    border: 0.5px solid rgba(255, 255, 255, 0.178);
+}
+.pageA-account P:nth-of-type(1){
+    margin-top: 60px;
+    height: 20px;
+    font-size: X-large;
+    color: rgba(255, 255, 255, 0.774);
+}
+.pageA-account P:nth-of-type(2){
+    margin-top: -10px;
+    height: 15px;
+    font-size: xx-small;
+    color: rgba(255, 255, 255, 0.281);
+}
+
+.box{
+    margin-top: 40px;
+    padding-left: 100px;
+    padding-right:100px;
+    height: 80px;
+    display: flex;
+    color: rgba(255, 255, 255, 0.178);
+    line-height: 60px;
+}
+input{
+    background-color: rgba(255, 255, 255, 0);
+    text-align: center;
+}
+.email{
+    margin: 10px;
+    flex: 2.5 200px;
+    border: 0.5px solid rgba(255, 255, 255, 0.178);
+}
+.password{
+    margin: 10px;
+    flex: 2.5 200px;
+    border: 0.5px solid rgba(255, 255, 255, 0.178);
+}
+.btnlog{
+    margin: 10px;
+    flex: 1 100px;
+    border: 0.5px solid rgba(255, 255, 255, 0.178);
+    background-color:  rgba(255, 255, 255, 0.664);
+    color: black;
+    border-radius: 5px;
+    border: none;
+}
+.btnlog:hover{
+    background-color:  white;
+}
+
+
+
+
+.pageB{
+    width: 1600px;
+    height: 700px;
+    text-align: center;
+}
+.pageB p{
+    width: 100%;
+    margin: 0;
+}
+.pageB p:nth-of-type(1){
+    padding-top: 80px;
+    font-size: x-large;
+}
+.pageB p:nth-of-type(2){
+    padding: 10px;
+    font-size: 50px;
+}
+.pageB .section{
+    margin-top: 20px;
+    height: 200px;
+    padding: 0 150px 0 200px;
+    display: flex;
+}
+.pageB .action{
+    flex:1 400px;
+    display: flex;
+    
+}
+.pageB .photo{
+    flex:1 100px;
+}
+.pageB .photo img{
+    padding: 20px 0 0 80px;
+}
+.pageB .intro{
+    flex:2 200px;
+}
+.pageB .intro p{
+    width: 350px;
+    padding: 20px 0 0 20px;
+    text-align: left;
+}
+.pageB .intro p:nth-of-type(1){
+    font-size: x-large;
+    font-weight: bold;
+}
+.pageB .intro p:nth-of-type(2){
+    font-size: large;
+    color: rgba(0, 0, 0, 0.794);
+}
+.pageC{
+    width: 1600px;
+    height:800px;
+    position: relative;
+}
+.pageC img{
+    width: 1600px;
+    height:800px;
+    position: absolute;
+}
+.pagec .left{
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    margin:100px 0 0 300px;
+}
+.pagec .left p{
+    color:  rgba(255, 255, 255, 0.726);
+    width: 300px;
+}
+.pagec .left p:nth-of-type(1){
+    margin:80px 0 0 60px;
+    font-size: 40px;
+}
+.pagec .left p:nth-of-type(2){
+    margin:40px 0 0 60px;
+    font-size: large;
+    line-height: 30px;
+}
+.pageC .left .check{
+    margin:40px 0 0 40px;
+    text-align: center;
+}
+.pageC .button{
+    float: left;
+    height: 50px;
+    line-height: 50px;
+    width: 180px;
+    border: 0.5px solid rgba(255, 255, 255, 0.178);
+    background-color:  rgba(255, 255, 255, 0);
+    color: rgba(255, 255, 255, 0.712);
+    margin-left: 20px;
+}
+.pageC .button:hover{
+    background-color: white;
+    color: black;
+}
+
+
+
+.pageD{
+    padding-top:40px;
+    width: 1600px;
+    height: 570px;
+    text-align: center;
+    border-bottom: 0.5px solid silver;
+}
+.pageD p{
+    font-size: 40px;
+}
+.pageD section{
+    height: 400px;
+    padding: 10px 300px 0 300px;
+    display: flex;
+}
+.pageD section article{
+    flex:1 100px;
+    margin: 30px;
+}
+
+.pageD section article p{
+    margin-top: 40px;
+    font-size: 20px;
+}
+.pageE{
+    width: 1600px;
+    height: 880px;
+    padding-top: 120px;
+
+}
+.pageE .image-text{
+    width: 1000px;
+    height: 420px;
+    padding:0 300px 0 300px;
+
+}
+
+
+.pageE .image-text img{
+    float: left;
+}
+.pageE .image-text:nth-of-type(2) img{
+    float: right;
+}
+.pageE .image-text .text{
+    float: left;
+    margin: 80px 0 0 30px;
+
+}
+.pageE .image-text .text p{
+    color:  black;
+    width: 300px;
+}
+.pageE .image-text .text p:nth-of-type(1){
+    margin:40px 0 0 60px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.pageE .image-text .text p:nth-of-type(2){
+    margin:20px 0 0 60px;
+    font-size: large;
+    line-height: 30px;
+    color: rgb(102, 99, 99);
+}
+.pageE .image-text:nth-of-type(2) .text{
+    float: left;
+    margin-left: -10px;
+}
+.pageF{
+    width: 1000px;
+    height: 900px;
+    padding:100px 300px 100px 300px ;
+    text-align: center;
+    background-color: rgba(197, 193, 193, 0.089);
+}
+.pageF p{
+    font-size: 50px;
+    margin-top: -10px;
+}
+.pageF p:nth-of-type(2){
+    width: 700px;
+    font-size: x-large;
+    margin: -20px auto;
+    color: rgb(102, 99, 99);
+}
+.pageF .four{
+    width: 1000px;
+    margin:30px auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+.pageF img{
+    width: 460px;
+    height: 340px;
+    object-fit: cover;
+    position: relative;
+}
+.pageF .face{
+    margin-top: 30px;
+    flex: 1 500px;
+    position: relative;
+}
+.pageF .upimg{
+    position:absolute;
+    width: 460px;
+    height: 340px;
+    top: 0;
+    left: 20px;
+    background-color:rgba(0, 0, 0, 0.575);
+    opacity: 0;
+}
+
+.pageF a:hover .upimg{
+    opacity: 1;
+}
+.pageH{
+    width: 1000px;
+    height: 500px;
+    padding:100px 300px 100px 300px;
+    display: flex;
+    text-align: center;
+}
+.pageH .contect{
+    flex:1 300px;
+    margin-left: 20px;
+    border: 0.5px solid rgba(0, 0, 0, 0.164);
+}
+.pageH .text{
+    flex: 1 300px;
+    border: 0.5px solid rgba(0, 0, 0, 0.164);
+    margin-left: 30px;
+}
+.pageH .contect p{
+    font-size: x-large;
+    margin-bottom: 0;
+    margin: 40px 0 20 0px;
+}
+.pageH input{
+    margin-top:20px;
+    width: 300px;
+    height:50px;
+    text-align: left;
+    padding-left: 20px;
+    border: 0.5px solid rgba(0, 0, 0, 0.164);
+    background-color: rgba(255, 255, 255, 0);
+
+}
+.pageH textarea{
+    height: 150px;
+    margin-top:20px;
+    width: 300px;
+    text-align: left;
+    padding-left: 20px;
+    border: 0.5px solid rgba(0, 0, 0, 0.164);
+    background-color: rgba(255, 255, 255, 0);
+    font-family: inherit;
+}
+.pageH button{
+    margin-top: 20px;
+    width: 300px;
+    height:50px;
+    background-color: rgba(0, 0, 0, 0.89);
+    color: white;
+    border: none;
+}
+.pageH .text p{
+    text-align: left;
+}
+.pageH .text p:nth-of-type(1){
+    margin:60px 0 0 50px;
+    font-size: 50px;
+}
+.pageH .text p:nth-of-type(2){
+    margin:30px 0 0 50px;
+    width: 400px;
+    font-size: large;
+    line-height: 30px;
+    color:rgb(102, 99, 99) ;
+}
+.pageH .cont{
+    height: 200px;
+    padding:30px 0 0 50px;
+}
+.pageH .icocon{
+    width: 100%;
+    float: left;
+    margin-top: 20px;
+}
+.pageH .cont img{
+    float: left;
+}
+.pageH .cont .addr{
+    float: left;
+    margin:5 0 0 20px;
+    font-weight: bold;
+    font-size:15px;
+}
+.pageI{
+    width: 1400px;
+    height:400px;
+    padding:50px 100px 0 100px;
+    background-color:  rgba(0, 0, 0, 0.89);
+    display: flex;
+    color: rgb(102, 99, 99);
+}
+.pageI .section{
+    flex:1 100px;
+    height: 300px;
+    padding-left:30px;
+    padding-top:30px;
+    font-size: 18px;
+}
+.pageI .section p{
+    width: 300px;
+}
+.pageI .section p:nth-of-type(1){
+    color:white;
+}
+.pageI .section:nth-of-type(4){
+    flex:2 100px;
+}
