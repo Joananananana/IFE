@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>IFE ECMAScript</title>
+    <script>
+        window.onload=function(){
+           getAllListItem();
+           findAllHtmlSpanInOneSection("news-normal");
+           findListItem("news-normal", "HTML");
+           getActiveLinkContent("news-normal");
+        }
+        function getAllListItem() {
+            // 返回页面中所有li标签
+            var li=document.getElementsByTagName("li");
+            console.log(li);
+            
+        }
+    
+        function findAllHtmlSpanInOneSection(sectionId) {
+            // 返回某个section下所有span中内容为HTML的span标签
+             var spanlist=document.getElementById(sectionId).getElementsByTagName("span");
+             var x;
+             for(x in spanlist){
+                 if(spanlist[x].innerHTML=="HTML")
+                 console.log(spanlist[x]);
+             }
+    
+        }
+    
+        function findListItem(sectionId, spanCont) {
+            // 返回某个section下，所有所包含span内容为spanCont的LI标签
+             var lilist=document.getElementById(sectionId).getElementsByTagName("li");
+            //  var x,y;
+            //     for(x in lilist){
+            //         var spanlist=lilist[x].getElementsByTagName("span");
+            //             for(y in spanlist){
+            //                 if(spanlist[y].innerHTML!=spanCont)
+            //                     break;
+            //                 console.log(lilist[x]);
+            //             }
+            //     }
+             for (var i = 0; i < lilist.length; i++) {
+                //  console.log(i);
+                 var spanlist=lilist[i].getElementsByTagName("span");
+                    for(var j = 0; j < spanlist.length; j++){
+                        // console.log(j);
+                        if(spanlist[j].innerHTML !=spanCont){
+                            // console.log("out");
+                            break;
+                        }
+                        console.log(lilist[i]);
+                 }
+           }
+        }
+
+        function getActiveLinkContent(sectionId) {
+            // 返回某个section下，class为active的链接中包含的文字内容
+            var alist=document.getElementById(sectionId).getElementsByTagName("a");
+            // for-in是为普通对象设计的，你可以遍历得到字符串类型的键，因此不适用于数组遍历
+            // var x;
+            // for (x in alist){
+            //     if(alist[x].getAttribute("class")=="active")
+            //     console.log(alist[x].innerHTML);
+            // }
+            for (var x = 0 ; x < alist.length; x++){
+                if(alist[x].getAttribute("class")=="active")
+                console.log(alist[x].innerHTML);
+            }
+
+        }
+        
+        </script>
+</head>
+<body>        
+    <div id="wrapper">
+        <div id="news-top" class="section">
+            <h3>Some title</h3>
+            <div class="content">
+                <ul>
+                    <li><span>HTML</span><a href="">Some Link1</a></li>
+                    <li><span>JS</span><a class="active" href="">Some Link2</a></li>
+                    <li><span>CSS</span><a href="">Some Link3</a></li>
+                    <li><span>JS</span><a href="">Some Link4</a></li>
+                </ul>
+            </div>
+            <img src="">
+            <p class="">Some Text</p>
+        </div>
+        <div id="news-normal" class="section">
+            <h3>Some title</h3>
+            <div class="content">
+                <ul>
+                    <li><span>HTML</span><a href="">Some Link1</a></li>
+                    <li><span>HTML</span><a href="">Some Link2</a></li>
+                    <li><span>JS</span><a class="active" href="#">Some Link3</a></li>
+                    <li><span>CSS</span><a href="">Some Link4</a></li>
+                </ul>
+            </div>
+            <img src="">
+            <p class="">Some Text</p>
+        </div>      
+    </div>
+    
+</body>
+</html>
