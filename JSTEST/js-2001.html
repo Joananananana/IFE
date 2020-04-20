@@ -1,0 +1,83 @@
+<!-- 事件委托 -->
+<body>
+<ul id="ul1">
+    <li>111</li>
+    <li>222</li>
+    <li>333</li>
+    <li>444</li>
+</ul>
+
+
+<div id="box">
+    <input type="button" id="add" value="添加" />
+    <input type="button" id="remove" value="删除" />
+    <input type="button" id="move" value="移动" />
+    <input type="button" id="select" value="选择" />
+</div>
+
+
+</body>
+<script>
+    
+    /* window.onload = function(){
+        var oUl = document.getElementById("ul1");
+        var aLi = oUl.getElementsByTagName('li');
+        for(var i=0;i<aLi.length;i++){
+            aLi[i].onclick = function(){
+                alert(123);
+            }
+        }
+    } */
+
+
+    /* 点击ul或子元素都会有效果 */
+    /* 这里用父级ul做事件处理，当li被点击时，由于冒泡原理，事件就会冒泡到ul上，因为ul上有点击事件，所以事件就会触发 */
+    /* window.onload=function(){
+        var oUL=document.getElementById("ul1");
+        oUL.onclick=function(){
+            alert(123);
+        }
+ */
+
+    /* 只有点击li才会触发 */  
+    /* Event对象提供了一个属性叫target，可以返回事件的目标节点，我们成为事件源，也就是说，
+    target就可以表示为当前的事件操作的dom，但是不是真正操作dom，当然，这个是有兼容性的，
+    标准浏览器用ev.target，IE浏览器用event.srcElement，此时只是获取了当前节点的位置，并不知道是什么节点名称，
+    这里我们用nodeName来获取具体是什么标签名，这个返回的是一个大写的，我们需要转成小写再做比较（习惯问题） */
+    window.onload = function(){
+		    　　var oUl = document.getElementById("ul1");
+		    　　oUl.onclick = function(ev){
+		    	　　　　var ev = ev || window.event;
+		   		　　　　var target = ev.target || ev.srcElement;
+		        　　　　if(target.nodeName.toLowerCase() == 'li'){
+		        　 　　　　　　	alert(123);
+		　　　　　　　  alert(target.innerHTML);
+				　　　　}
+		    　　}
+		}
+    /* 每个input被点击的效果不一样 */
+    window.onload=function(){
+        var box=document.getElementById("box");
+        box.onclick=function(ev){
+            var ev=ev||window.event;
+            var target=ev.target||ev.srcElement;
+            if(target.nodeName.toLowerCase()=="input"){
+                switch(target.id){
+                        case 'add':
+                        alert("添加");
+                        break;
+                        case 'remove':
+                        alert("删除");
+                        break;
+                        case 'move':
+                        alert("移动");
+                        break;
+                        case 'select':
+                        alert("选择");
+                        break;
+                        
+                }
+            }
+        }
+    }
+</script>

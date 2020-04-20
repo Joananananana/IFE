@@ -1,0 +1,27 @@
+<head>
+    <style>
+        #Pic{
+            width: 480px;
+            height: 480px;
+            background: url(erik_ce204002.jpg);
+            /* background-repeat: no-repeat; */
+        }
+    </style>
+</head>
+<body>
+    <div id="Pic" ></div>
+    <script>
+        window.onload = function () {
+            var Y=0;
+            var pic=document.getElementById("Pic");
+            console.log(pic);
+            function change(){
+                pic.style.backgroundPositionY = '-' + Y + 'px';
+                 Y+=480;
+                  if(Y==8160)
+                     Y=0;
+            }
+            setInterval(change,100);
+        }
+    </script>
+</body>
