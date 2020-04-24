@@ -1,0 +1,72 @@
+<<div>
+    <label>Number A:<input id="radio-a" checked="true" type="radio" name="math-obj" value="a"></label><input id="num-a" value="11.1" type="text">
+    <label>Number B:<input id="radio-b" type="radio" name="math-obj" value="b"></label><input id="num-b" value="4" type="text">
+</div>
+<div id="btn">
+    <button id="btn1">判断当前选中的输入框输入内容是否为数字</button>
+    <button id="btn2">把 A 四舍五入为 B 个小数位数的数字</button>
+    <button id="btn3">当前选中数字的绝对值</button>
+    <button id="btn4">对当前选中的数字进行上舍入</button>
+    <button id="btn5">对当前选中的数字进行下舍入</button>
+    <button id="btn6">把当前选中的数字四舍五入为最接近的整数</button>
+    <button id="btn7">返回 A 和 B 中的最高值</button>
+    <button id="btn8">返回 A 和 B 中的最低值</button>        
+</div>
+<p id="result"></p>
+<script>
+    window.onload=function(){
+        var btn=document.getElementById("btn");
+        var result=document.getElementById("result");
+        var radioa=document.getElementById("radio-a");
+        var radiob=document.getElementById("radio-b");
+        var numa=document.getElementById("num-a");
+        var numb=document.getElementById("num-b");
+        btn.onclick=function(e){
+            var target=e.target;
+            target.onclick=function(){
+                if(radioa.checked==true)
+                var num=document.getElementById("num-a");
+                if(radiob.checked==true)
+                var num=document.getElementById("num-b");
+                var number=parseFloat(num.value);
+                var numbera=parseFloat(numa.value);
+                var numberb=parseFloat(numb.value);
+                switch(target.id){
+                    case 'btn1':
+                        if(isNaN(number))
+                        result.innerHTML="内容不为数字！";break;
+                    case 'btn2':
+                        var ten=Math.pow(10,numberb);
+                        var final=Math.round(numbera*ten)/ten;
+                        var s=final.toString();console.log(s);
+                        var rs=s.indexOf('.');
+                        if(rs<0){ /* final是整数先加一个小数点 */
+                            rs=s.length;
+                            s=s+'.';
+                        }
+                        while(s.length<=rs+numberb ){
+                            s+='0';
+                        }
+                        console.log(s);
+                        result.innerHTML=s;break;
+                    case 'btn3':
+                        result.innerHTML=Math.abs(number);break;
+                    case 'btn4':
+                        result.innerHTML=Math.ceil(number);break;
+                    case 'btn5':
+                        result.innerHTML=Math.floor(number);break;
+                    case 'btn6':
+                        result.innerHTML=Math.round(number);break;
+                    case 'btn7':
+                        result.innerHTML=Math.max(numbera,numberb);break;
+                    case 'btn8':
+                        result.innerHTML=Math.min(numbera,numberb);break;
+                }
+                if(isNaN(numbera)||isNaN(numberb))   /* 使用isNaN(x) 函数检查其参数是否是非数字值，x是数字返回false，返回true表示非数字。*/
+                result.innerHTML="输入不为数字！"
+            }
+            
+        }
+    }
+</script>
+

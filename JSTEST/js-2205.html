@@ -1,0 +1,129 @@
+<input id="queue-input" type="text">
+<p id="queue-cont">队列内容：apple-pear</p>    
+<button id="in-btn">入队</button>
+<button id="out-btn">出队</button>
+<button id="font-btn">打印队头元素内容</button>
+<button id="empty-btn">判断队列是否为空</button>
+<!-- 队列是一种特殊的线性表，特殊之处在于它只允许在表的前端（front）进行删除操作，而在表的后端（rear）进行插入操作  先进先出-->
+<!-- 
+<script>
+    //队头对应数组中第一个元素
+var cont=document.getElementById("queue-cont");
+var queue = ["apple", "pear"];
+window.onload=function(){
+    document.getElementById("in-btn").onclick=push;
+    document.getElementById("out-btn").onclick=pop;
+    document.getElementById("font-btn").onclick=print;
+    document.getElementById("empty-btn").onclick=empty;
+}
+function push(){
+    queue.push("banana");
+    cont.innerHTML=queue.join("<-");//queue.toString();
+}
+function pop(){
+    queue.shift();
+    cont.innerHTML=queue.join("<-");//queue.toString();
+}
+function print(){
+    cont.innerHTML=queue[0];
+}
+function empty(){
+    if(queue.length==0)
+    cont.innerHTML="队列为空";
+    else
+    cont.innerHTML="队列长度为"+queue.length;
+}
+</script> -->
+<!-- .................................................................................................... -->
+<!-- <script>
+    //队头对应数组中最后一个元素
+    var cont=document.getElementById("queue-cont");
+    var queue = ["apple", "pear"];
+    window.onload=function(){
+        document.getElementById("in-btn").onclick=push;
+        document.getElementById("out-btn").onclick=pop;
+        document.getElementById("font-btn").onclick=print;
+        document.getElementById("empty-btn").onclick=empty;
+    }
+    function push(){
+        queue.unshift("banana");
+        cont.innerHTML=queue.join("->");//queue.toString();
+    }
+    function pop(){
+        queue.pop();
+        cont.innerHTML=queue.join("->");//queue.toString();
+    }
+    function print(){
+        cont.innerHTML=queue[queue.length-1];
+    }
+    function empty(){
+        if(queue.length==0)
+        cont.innerHTML="队列为空";
+        else
+        cont.innerHTML="队列长度为"+queue.length;
+    }
+    </script> -->
+
+    <!-- .................................................................................................... -->
+    <!-- 栈（stack）又名堆栈，它是一种运算受限的线性表。
+    限定仅在表尾进行插入和删除操作的线性表。这一端被称为栈顶，相对地，把另一端称为栈底。 先进后出 -->
+    <!-- <script>
+        //栈顶对应数组中第一个元素
+        var cont=document.getElementById("queue-cont");
+    var queue = ["apple", "pear"];
+    window.onload=function(){
+        document.getElementById("in-btn").onclick=push;
+        document.getElementById("out-btn").onclick=pop;
+        document.getElementById("font-btn").onclick=print;
+        document.getElementById("empty-btn").onclick=empty;
+    }
+    function push(){
+        queue.unshift("banana");
+        cont.innerHTML=queue.join("<-");//queue.toString();
+    }
+    function pop(){
+        queue.shift();
+        cont.innerHTML=queue.join("<-");//queue.toString();
+    }
+    function print(){
+        cont.innerHTML=queue[0];
+    }
+    function empty(){
+        if(queue.length==0)
+        cont.innerHTML="栈为空";
+        else
+        cont.innerHTML="栈长度为"+queue.length;
+    }
+    </script> -->
+
+     <!-- .................................................................................................... -->
+    
+    <script>
+        //栈顶对应数组中最后一个元素
+        var cont=document.getElementById("queue-cont");
+    var queue = ["apple", "pear"];
+    window.onload=function(){
+        document.getElementById("in-btn").onclick=push;
+        document.getElementById("out-btn").onclick=pop;
+        document.getElementById("font-btn").onclick=print;
+        document.getElementById("empty-btn").onclick=empty;
+    }
+    function push(){
+        queue.push("banana");
+        cont.innerHTML=queue.join("->");//queue.toString();
+    }
+    function pop(){
+        queue.pop();
+        cont.innerHTML=queue.join("->");//queue.toString();
+    }
+    function print(){
+        cont.innerHTML=queue[queue.length-1];
+    }
+    function empty(){
+        if(queue.length==0)
+        cont.innerHTML="栈为空";
+        else
+        cont.innerHTML="栈长度为"+queue.length;
+    }
+    </script>
+ 
