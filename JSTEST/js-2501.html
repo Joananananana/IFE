@@ -1,0 +1,39 @@
+<script>
+    console.log(!!null);
+    function Go() {
+    console.log("Go");
+}
+
+function GoSteps(n) {
+    console.log(n);
+    if(typeof(n)=="undefined"||n==true) n=1;//无参数时或参数为true时，默认参数为1
+    if(!n||n<0||typeof(n)!="number") //参数不为正数或参数布尔值为false
+        console.log("前进0步");
+    else{
+        n=Math.floor(n);
+        while(n>0){
+        Go(--n);
+    }
+    }
+    
+}
+
+GoSteps(10); // Go 10次
+GoSteps(1); // Go 1次
+ 
+
+GoSteps(1.4);  // Go 1次
+GoSteps(1.6);  // Go 1次
+ GoSteps(true);  // Go 1次
+ GoSteps(); // Go 1次，认为缺少参数时，默认参数为1
+
+ GoSteps(-1);  // 0次
+ GoSteps("Test");  // 0次
+  GoSteps(false);  // 0次
+  GoSteps(NaN);  // 0次   NaN是Number类型,它表示Not A Number(不是数字) 任何值和NaN比较都不相等 NaN布尔值为false
+  GoSteps(null);  // 0次   Null类型只有一个值null，表示一个空对象指针，正式使用typeof操作符检测null会返回object
+ GoSteps(0);  // 0次
+
+
+
+</script>
