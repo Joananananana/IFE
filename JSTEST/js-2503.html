@@ -1,22 +1,12 @@
 <select id="year-select">
-    <option value="2000">2000</option>
-    <option value="2001">2001</option>
-    <option value="2002">2002</option>
-    ……
-    <option value="2032">2032</option>
-    <option value="2033">2033</option>
-    <option value="2034">2034</option>
 </select>
 
 <select id="month-select">
-    <option value="1">01</option>
-    <option value="2">02</option>
-    ……
-    <option value="12">12</option>
 </select>
 
 <select id="day-select">
 </select>
+
 <select id="hour-select">
 </select>
 
@@ -78,7 +68,7 @@
    //此函数 更新年份及月份时执行函数更新日期
     function update(){
         //更新p标签信息
-        setInterval(rela,1000);
+        setInterval(rela,500);
         //更新日期列表
         addDaysel();
     }
@@ -125,23 +115,24 @@
         var text="";
         for(var i=0;i<6;i++){       //判断选中时间是否过去
             if(arr1[i]>arr2[i]) {
-                var text="已经过去";
-                break;
-            }
-            else if(arr1[i]<arr2[i]) {
                 var text="还有";
                 break;
             }
+            else if(arr1[i]<arr2[i]) {
+                var text="已经过去";
+                break;
+            }
         }
-        if(text=="已经过去")
+        if(text=="还有")
              var sub=subarr(arr2,arr1);
         else 
              var sub=subarr(arr1,arr2);
-        document.getElementById("result-wrapper").innerHTML="现在距离 "+nowyear+'年'+addzero(nowmonth)+'月'+addzero(nowdate)+'日'+nowday+addzero(nowhour)+':'+addzero(nowminite)+':'+addzero(nowsecond)+" "+text+" "+ sub[0]+"天"+sub[1]+ "小时"+sub[2]+ "分"+sub[3]+ "秒";
+        document.getElementById("result-wrapper").innerHTML="现在距离 "+year+'年'+addzero(month)+'月'+addzero(date)+'日'+addzero(hour)+':'+addzero(minite)+':'+addzero(second)+" "+text+" "+ sub[0]+"天"+sub[1]+ "小时"+sub[2]+ "分"+sub[3]+ "秒";
     }
 
      //计算两个时间相差多少秒换算成天时秒  //arr1为较小的时间
         function subarr(arr1,arr2){//以arr1[0]为第一天
+        //console.log([arr1[1],arr2[1]]);
             var arrsecond1=[];//记录年月日时分秒对应得秒数
             var arrsecond2=[];
             var ty=0;
@@ -152,8 +143,16 @@
             }
             arrsecond2[0]=86400*ty;
             arrsecond1[0]=0;
-            arrsecond2[1]=muchDay(arr2[0],arr2[1])*86400;
-            arrsecond1[1]=muchDay(arr1[0],arr1[1])*86400;
+            var tm1=0;
+            var tm2=0;
+            for(var j=1;j<arr2[1]+1;j++){
+                tm2+=muchDay(arr2[0],j);
+            }
+            for(var j=1;j<arr1[1]+1;j++){
+                tm1+=muchDay(arr1[0],j);
+            }
+            arrsecond2[1]=tm2*86400;
+            arrsecond1[1]=tm1*86400;
             arrsecond2[2]=arr2[2]*86400;
             arrsecond1[2]=arr1[2]*86400;
             arrsecond2[3]=arr2[3]*3600;
@@ -170,6 +169,7 @@
             }
             var seconds=seconds2-seconds1;
             var day=parseInt(seconds/86400);
+            console.log(day);
             var hour=parseInt(seconds%86400/3600);
             var minite=parseInt((seconds%86400%3600)/60);
             var second=seconds%86400%3600%60;
