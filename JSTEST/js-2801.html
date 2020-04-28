@@ -1,0 +1,202 @@
+<style>
+    #email-sug-wrapper{
+        padding: 0;
+        margin: 0 0 0 50px;
+        font-size: small;
+        width: 198px;
+        border-left: 1px solid silver;
+        border-right: 1px solid silver;
+        border-bottom: 1px solid silver;
+        display: none;
+    }
+    #email-input{
+        width: 200px;
+        margin: 0 0 0 50px;
+    }
+    .active{
+          background-color: skyblue;
+    }
+    li{
+        background-color:white;
+    }
+</style>
+<div class="wrapper">
+    <input id="email-input" type="text" autofocus>
+    <ul id="email-sug-wrapper" class="email-sug" style="list-style: none;"></ul>
+</div>
+<script>
+    window.onload=function(){
+        var input=document.getElementById("email-input");
+        var ul=document.getElementById("email-sug-wrapper");
+        var postfixList = ['@163.com', '@gmail.com', '@126.com', '@qq.com', '@263.net'];
+        input.oninput=changeEmail;
+        function changeEmail(){
+                ifShowul();
+        }
+        ul.onmouseover=function(e){
+            var target=e.target;
+            target.style.background='pink';
+        }
+        ul.onmouseout=function(e){
+            var target=e.target;
+            target.style.background='white';
+            if(target.getAttribute("class")=="active")
+            target.style.background='skyblue';
+        }
+        ul.onclick=function(e){
+            var target=e.target;
+            input.value=target.innerHTML;
+            hideUl();
+        }
+        input.onkeydown=function(e){
+           if(e.keyCode==40)
+                downActiveli();
+           if(e.keyCode==38)
+                upActiveli();
+            if(e.keyCode==13)
+                enter();
+            if(e.keyCode==27 )
+                input.select();   //全选input中的内容
+        }
+        function enter(){
+            var lilist=ul.getElementsByTagName("li");          //找到当前为选中状态的Li 
+            for(var i=0;i<lilist.length;i++){
+                if(lilist[i].getAttribute("class")=="active"){
+                    var activeli=lilist[i];
+                    break;
+                }
+            }
+            input.value=lilist[i].innerHTML;
+            hideUl();
+            input.autofocus="autofocus";
+            
+        }
+        //选中下一个li
+        function downActiveli() {
+            var lilist=ul.getElementsByTagName("li");          //找到当前为选中状态的Li 
+            for(var i=0;i<lilist.length;i++){
+                if(lilist[i].getAttribute("class")=="active"){
+                    break;
+                }
+            }
+             lilist[i].removeAttribute("class");console.log(lilist);//
+             lilist[i].style.backgroundColor='White';            //清除掉它的选中状态
+            if (i>=0&&i<lilist.length-1) {                                              //当前选中状态Li不是第一个
+                lilist[i+1].setAttribute("class","active") ;           //设置下一个Li为选中状态
+                lilist[i+1].style.backgroundColor='skyblue'; 
+            }
+            if(i==lilist.length-1) {
+                lilist[0].setAttribute("class","active") ;
+                lilist[0].style.backgroundColor='skyblue';  
+            }
+            console.log(lilist);
+        }
+        //选中上一个li
+        function upActiveli() {
+            var lilist=ul.getElementsByTagName("li");          //找到当前为选中状态的Li 
+            for(var i=0;i<lilist.length;i++){
+                if(lilist[i].getAttribute("class")=="active"){
+                    var activeli=lilist[i];
+                    break;
+                }
+            }
+             lilist[i].removeAttribute("class");console.log(lilist);//
+             lilist[i].style.backgroundColor='White';            //清除掉它的选中状态
+            if (i>0&&i<=lilist.length-1) {                                              //当前选中状态Li不是第一个
+                lilist[i-1].setAttribute("class","active") ;           //设置下一个Li为选中状态
+                lilist[i-1].style.backgroundColor='skyblue'; 
+            }
+            if(i==0) {
+                lilist[lilist.length-1].setAttribute("class","active") ;
+                lilist[lilist.length-1].style.backgroundColor='skyblue';  
+            }
+            console.log(lilist);
+        }
+        //重置选中状态
+        function resetActiveli() {
+            var lilist=ul.getElementsByTagName("li");            //找到当前为选中状态的Li
+            for(var i=0;i<lilist.length;i++){
+                if(lilist[i].getAttribute("class")=="active"){
+                    var activeli=lilist[i];
+                    break;
+                }
+            }
+            console.log(i);
+            if (i>0) {                                              //当前选中状态Li不是第一个
+                lilist[i].setAttribute("class",null)             //清除掉它的选中状态
+                lilist[i].style.backgroundColor='White'; 
+                lilist[0].setAttribute("class","active")            //设置第一个Li为选中状态
+            }
+        }
+        //获取用户输入
+        function getInput(){
+            return input.value.trim();                     //去除头尾空格
+        }
+        //生成提示框内容 
+        function createLi(){
+            var inputtext=getInput();
+            var index=inputtext.indexOf("@");
+            var match="";
+            if(index>-1){                                  //input中出现了@
+                var match=inputtext.slice(index);//用来前缀匹配的用户输入内容 = @之后的字符串
+                inputtext=inputtext.slice(0,index);//用来拼接的用户输入内容 = @之前的字符串
+                
+            }
+            var lilist=[];
+            var j=0;
+            for(var i=0;i<postfixList.length;i++){
+                if(match.length>postfixList[i].length){               
+                    var matchc=match.slice(0,postfixList[i].length);//@字符串长度大于postfixList[i]
+                    if(postfixList[i]==matchc){             //@字符串长度大于postfixList[i]且match的前postfixList[i]位能匹配postfixList[i]时显示所有的提示项
+                        for(var i=0;i<postfixList.length;i++){       //输入a@qq.commmmmmm->出现提示框，出现全部提示
+                            lilist[i]=inputtext+postfixList[i];
+                        }
+                    }
+                }
+                else                                            //@字符串长度小于postfixList[i]
+                    if(postfixList[i].search(match)!=-1){       //postfixList能匹配到@之后的字符串.slice(0,postfixList[i].length)
+                        lilist[j]=inputtext+postfixList[i];
+                        j++;
+                    }  
+            }
+            return lilist;
+        }
+        //将内容添加到email-sug-wrapper中
+        function createUl(){
+            ul.innerHTML="";
+            var lilist=createLi();
+            if(lilist.length>0){
+            for(var i=0;i<lilist.length;i++){
+                var li=document.createElement("li");
+                li.innerHTML=lilist[i];
+                ul.appendChild(li);
+            }
+            ul.getElementsByTagName("li")[0].setAttribute("class","active");//设置第一个li为选中状态
+            }
+        }
+
+        //控制email-sug-wrapper的显示/隐藏状态 
+        function ifShowul(){
+            var inputtext=getInput();
+            if(inputtext=="")
+                hideUl();
+            else
+                showUl();
+
+        }
+        //隐藏提示框
+        function hideUl(){
+            ul.style.display="none";
+            ul.innerHTML="";
+        }
+        //展示提示框
+        function showUl(){
+            
+            ul.style.display="block";
+            createUl();
+        }
+        
+       
+    }
+
+</script>
