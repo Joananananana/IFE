@@ -1,0 +1,91 @@
+<svg id="svg" width="50%" height="400" version="1.1" xmlns="http://www.w3.org/2000/svg" style="float: left;">
+    <line x1="30" x2="430" y1="300" y2="300" style="stroke: seagreen;"></line>
+    <line x1="30"y1="0" x2="30"y2="300" style="stroke:seagreen"/>
+</svg>
+<canvas id="myCanvas" width="600" height="600" style="float: left;"></canvas>
+<script>
+    window.onload=function(){
+        var svg=document.getElementById("svg");
+        var c=document.getElementById("myCanvas");
+        let sourceData = [{
+            product: "手机",
+            region: "华东",
+            sale: [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
+        }]
+        column();
+        function column(){        //柱状图
+            var sale=sourceData[0].sale;
+            var max=sale[0];
+            for (var i=0;i<sale.length;i++){                  //找出最大值
+                if(sale[i]<sale[i+1])
+                    max=sale[i+1];
+            }
+            var each=max/250;                                 //装置图最大高度设置为250
+            var height=[];
+            var y=[];
+            for(var i=0;i<sale.length;i++){
+                height[i]=Math.round(each*sale[i]);
+                y[i]=300-height[i];      
+            }
+            var x=[];x[0]=40;
+            for(var i=1;i<y.length;i++){
+                x[i]=x[i-1]+30;
+            }
+            for(var i=0;i<height.length;i++){  
+                //SVG是基于xml格式的，创建标签节点需要有命名空间 把createElement改成createElementNS就可以了
+                var rect=document.createElementNS('http://www.w3.org/2000/svg',"rect"); 
+                rect.setAttribute('x',x[i]);
+                rect.setAttribute('y',y[i]);
+                rect.setAttribute('width',"24");
+                rect.setAttribute('height',height[i]);
+                rect.style.fill="green";
+                svg.appendChild(rect);
+            }
+         }
+        line();
+        function line(){
+            var ctx=c.getContext("2d");
+            ctx.beginPath();
+            ctx.moveTo(30,300);
+            ctx.lineTo(430,300);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(30,0);
+            ctx.lineTo(30,300);
+            ctx.stroke();
+            var sale=sourceData[0].sale;
+            var max=sale[0];
+            for (var i=0;i<sale.length;i++){                  //找出最大值
+                if(sale[i]<sale[i+1])
+                    max=sale[i+1];
+            }
+            var each=max/250;                                 //装置图最大高度设置为250
+            var height=[];
+            var y=[];
+            for(var i=0;i<sale.length;i++){
+                height[i]=Math.round(each*sale[i]);
+                y[i]=300-height[i];      
+            }
+            var x=[];x[0]=40;
+            for(var i=1;i<y.length;i++){
+                x[i]=x[i-1]+30;
+            }
+            for(var i=0;i<height.length;i++){  
+                ctx.beginPath();
+                ctx.arc(x[i],y[i],5,0,2*Math.PI);
+                ctx.fill();
+                if(i!=0){
+                    ctx.beginPath();
+                    ctx.moveTo(x[i-1],y[i-1]);
+                    ctx.lineTo(x[i],y[i]);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+    
+</script>
+
+
+
+

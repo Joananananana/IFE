@@ -13,6 +13,8 @@ window.onload=function(){
     var table=document.getElementsByTagName("table");
     var data=getDate();
     createTable(data);
+    drow();
+    line1();
     allcheckreg.onclick=function(){
         //allcheckreg.checked在点击时已经改变
         if(allcheckreg.checked==true){   //全选
@@ -46,6 +48,8 @@ window.onload=function(){
             if(table) div.innerHTML="";
             var data=getDate();
             createTable(data);
+            drow();
+            line1();
         }
     }
     divpro.onclick=function(e){
@@ -58,169 +62,10 @@ window.onload=function(){
             if(table) div.innerHTML="";
             var data=getDate();
             createTable(data);
+            drow();
+            line1();
         }
     }
 
-    // function getDate() {
-    //     var regs=[];
-    //     var pros=[];
-    //     var regcheck=divreg.getElementsByTagName("input");
-    //     var procheck=divpro.getElementsByTagName("input");
-    //     var j=0;
-    //     for(var i in regcheck){
-    //         if(regcheck[i].checked==true){
-    //             regs[j]=regcheck[i].value;
-    //             j++;
-    //         }
-    //     } 
-    //     j=0;
-    //     for(var i in procheck){
-    //         if(procheck[i].checked==true){
-    //             pros[j]=procheck[i].value;
-    //             j++;
-    //         }
-    //     }
-    //     var y=0;
-    //     var datalist=[];
-    //     for(var x=0;x<sourceData.length;x++){
-    //         for(i=0;i<regs.length;i++){
-    //             for(j=0;j<pros.length;j++)
-    //                 if(sourceData[x].region==regs[i]&&sourceData[x].product==pros[j]){
-    //                     datalist[y]=sourceData[x];
-    //                     y++;
-    //                 }
-    //             }
-    //     }
-    //     return [datalist,regs.length,pros.length];
-    // }
-    // function createTable(data){
-    //     var datalist=data[0];
-    //     var table=document.createElement("table");
-    //     var regnum=data[1];
-    //     var pronum=data[2];
-    //     if(pronum==1&&regnum>1){                     //商品选择一个 地区选择多个
-    //         //创建表头
-    //         var tr=document.createElement("tr");
-    //         var list=["商品","地区","1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"];
-    //         for(var i=0 in list){
-    //             var td=document.createElement("td");
-    //             td.innerHTML=list[i];
-    //             tr.appendChild(td);
-    //         }
-    //         table.appendChild(tr); 
-    //         for(var i=0;i<datalist.length;i++){
-    //             var tr=document.createElement("tr");
-    //             if(i==0) {
-    //                 var td=document.createElement("td");
-    //                 td.innerHTML=datalist[i].product;
-    //                 td.rowSpan=regnum;
-    //                 tr.appendChild(td);
-    //             }
-    //             var td=document.createElement("td");
-    //             td.innerHTML=datalist[i].region;
-    //             tr.appendChild(td);
-    //             var sale=datalist[i].sale;
-    //             for(var j=0;j<sale.length;j++){
-    //                 var td=document.createElement("td");
-    //                 td.innerHTML=sale[j];
-    //                 tr.appendChild(td);
-    //             }
-    //             tr.appendChild(td);
-    //             table.appendChild(tr);
-    //         }
-
-    //     }
-    //     else if(pronum>1&&regnum==1){ //商品选择多个 地区选择一个
-    //         //创建表头
-    //         var tr=document.createElement("tr");
-    //         var list=["地区","商品","1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"];
-    //         for(var i=0 in list){
-    //             var td=document.createElement("td");
-    //             td.innerHTML=list[i];
-    //             tr.appendChild(td);
-    //         }
-    //         table.appendChild(tr); 
-    //         for(var i=0;i<datalist.length;i++){
-    //             var tr=document.createElement("tr");
-    //             if(i==0) {
-    //                 var td=document.createElement("td");
-    //                 td.innerHTML=datalist[i].region;
-    //                 td.rowSpan=pronum;
-    //                 tr.appendChild(td);
-    //             }
-    //             var td=document.createElement("td");
-    //             td.innerHTML=datalist[i].product;
-    //             tr.appendChild(td);
-    //             var sale=datalist[i].sale;
-    //             for(var j=0;j<sale.length;j++){
-    //                 var td=document.createElement("td");
-    //                 td.innerHTML=sale[j];
-    //                 tr.appendChild(td);
-    //             }
-    //             tr.appendChild(td);
-    //             table.appendChild(tr);
-    //         }
-
-    //     }
-    //     else if(pronum>1&&regnum>1){ //商品选择多个 地区选择多个
-    //         //创建表头
-    //         var tr=document.createElement("tr");
-    //         var list=["商品","地区","1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"];
-    //         for(var i=0 in list){
-    //             var td=document.createElement("td");
-    //             td.innerHTML=list[i];
-    //             tr.appendChild(td);
-    //         }
-    //         table.appendChild(tr); 
-    //         for(var i=0;i<datalist.length;i++){
-    //             var tr=document.createElement("tr");
-    //             if(datalist[i-1]==undefined||datalist[i].product!=datalist[i-1].product) {
-    //                 var td=document.createElement("td");
-    //                 td.innerHTML=datalist[i].product;
-    //                 td.rowSpan=regnum;
-    //                 tr.appendChild(td);
-    //             }
-    //             var td=document.createElement("td");
-    //             td.innerHTML=datalist[i].region;
-    //             tr.appendChild(td);
-    //             var sale=datalist[i].sale;
-    //             for(var j=0;j<sale.length;j++){
-    //                 var td=document.createElement("td");
-    //                 td.innerHTML=sale[j];
-    //                 tr.appendChild(td);
-    //             }
-    //             tr.appendChild(td);
-    //             table.appendChild(tr);
-    //         }
-
-    //     }
-    //     else{
-    //         var tr=document.createElement("tr");
-    //         var list=["商品","地区","1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"];
-    //         for(var i=0 in list){
-    //             var td=document.createElement("td");
-    //             td.innerHTML=list[i];
-    //             tr.appendChild(td);
-    //         }
-    //         table.appendChild(tr); 
-    //         for(var i=0;i<datalist.length;i++){
-    //             var tr=document.createElement("tr");
-    //             var td=document.createElement("td");
-    //             td.innerHTML=datalist[i].product;
-    //             tr.appendChild(td);
-    //             var td=document.createElement("td");
-    //             td.innerHTML=datalist[i].region;
-    //             tr.appendChild(td);
-    //             var sale=datalist[i].sale;
-    //             for(var j=0;j<sale.length;j++){
-    //                 var td=document.createElement("td");
-    //                 td.innerHTML=sale[j];
-    //                 tr.appendChild(td);
-    //             }
-    //             tr.appendChild(td);
-    //             table.appendChild(tr);
-    //         }
-    //     }
-    //     div.appendChild(table);     
-    // }
+ 
 }

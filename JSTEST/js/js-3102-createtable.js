@@ -1,6 +1,7 @@
 function createTable(data){
     var datalist=data[0];
     var table=document.createElement("table");
+    table.id="dataTable";
     var regnum=data[1];
     var pronum=data[2];
     if(pronum==1&&regnum>1){                     //商品选择一个 地区选择多个
@@ -15,12 +16,13 @@ function createTable(data){
         table.appendChild(tr); 
         for(var i=0;i<datalist.length;i++){
             var tr=document.createElement("tr");
-            if(i==0) {
-                var td=document.createElement("td");
-                td.innerHTML=datalist[i].product;
-                td.rowSpan=regnum;
-                tr.appendChild(td);
-            }
+            var td=document.createElement("td");
+            td.innerHTML=datalist[i].product;
+            if(i==0) 
+                td.rowSpan=regnum; 
+            else 
+                td.style.display="none";
+            tr.appendChild(td);
             var td=document.createElement("td");
             td.innerHTML=datalist[i].region;
             tr.appendChild(td);
@@ -47,12 +49,14 @@ function createTable(data){
         table.appendChild(tr); 
         for(var i=0;i<datalist.length;i++){
             var tr=document.createElement("tr");
-            if(i==0) {
-                var td=document.createElement("td");
+            var td=document.createElement("td");
                 td.innerHTML=datalist[i].region;
+            if(i==0) 
                 td.rowSpan=pronum;
-                tr.appendChild(td);
-            }
+            else 
+                td.style.display="none";    
+            tr.appendChild(td);
+            
             var td=document.createElement("td");
             td.innerHTML=datalist[i].product;
             tr.appendChild(td);
@@ -79,12 +83,12 @@ function createTable(data){
         table.appendChild(tr); 
         for(var i=0;i<datalist.length;i++){
             var tr=document.createElement("tr");
-            if(datalist[i-1]==undefined||datalist[i].product!=datalist[i-1].product) {
-                var td=document.createElement("td");
+            var td=document.createElement("td");
                 td.innerHTML=datalist[i].product;
+            if(datalist[i-1]==undefined||datalist[i].product!=datalist[i-1].product) 
                 td.rowSpan=regnum;
-                tr.appendChild(td);
-            }
+            else td.style.display="none";    
+            tr.appendChild(td);
             var td=document.createElement("td");
             td.innerHTML=datalist[i].region;
             tr.appendChild(td);
@@ -127,5 +131,7 @@ function createTable(data){
         }
     }
     var div=document.getElementById("table-wrapper");
-    div.appendChild(table);     
+    div.appendChild(table);
+
+    
 }
