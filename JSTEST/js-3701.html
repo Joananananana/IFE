@@ -1,0 +1,146 @@
+<html>
+
+<style>
+    /* table{
+        border: 1px solid goldenrod;
+    } */
+    
+    table td{
+        width: 100px;
+        border: 1px solid black;
+    }
+    table td input{
+        width: 100px;
+    }
+    table td input #yes{
+        width: 20px;
+        float: right;
+    }
+    table img{
+        width: 16px;
+        height:16px;
+        float: right;
+    }
+    table #yes,#no{
+        width: 24px;
+        height:16px;
+        float: right;
+        font-size: 5;
+        margin-left: 1;
+        text-align: left;
+    }
+    #save{
+        width: 200px;
+        margin-top: 20px;
+    }
+    #divreg {
+        float: left;
+    }
+    #divpro{
+        float: left;
+    }
+    #checkbox {
+        float: left;
+    }
+    #input{
+        width: 50px;
+        border: none;
+    }
+    
+</style>
+<body id="bodys">
+    <div>
+        <input type="checkbox" id="allcheckreg">
+        <label for="全选">全选</label>
+        <div id="divreg">
+            <input type="checkbox" id="checkreg1" checked="true" value="华东">
+            <label for="华东">华东</label>
+            <input type="checkbox" id="checkreg2" checked="true" value="华南">
+            <label for="华南">华南</label>
+            <input type="checkbox" id="checkreg3" value="华北">
+            <label for="华北">华北</label>
+        </div>
+    </div>
+<div>
+    <input type="checkbox" id="allcheckpro">
+    <label for="全选">全选</label>
+    <div id="divpro">
+        <input type="checkbox" id="checkpro1" checked="true" value="手机">
+        <label for="手机">手机</label>
+        <input type="checkbox" id="checkpro2" value="笔记本">
+        <label for="笔记本">笔记本</label>
+        <input type="checkbox" id="checkpro3" value="智能音箱">
+        <label for="智能音箱">智能音箱</label>
+    </div>
+  </div>
+<div id="table-wrapper">
+</div>
+<div style="width:100%">
+    <input id="save" type="button" value="保存">
+</div>
+<div>
+    <svg id="svg" width="400" height="400" version="1.1" xmlns="http://www.w3.org/2000/svg" style="float: left;margin-top:20px">
+    </svg>
+    <canvas id="myCanvas" width="400" height="400" style="float: left;margin-top:20px"></canvas>
+    <canvas id="myCanvas1" width="400" height="400" style="float: left;margin-top:20px"></canvas>
+</div>
+</body>
+<script>
+    //storage只能存储字符串的数据，对于JS中常用的数组或对象却不能直接存储。
+    //可以通过JSON对象提供的parse和stringify将其他数据类型转化成字符串
+    
+    var myStorage = localStorage;
+    sourcedata=[{
+        product: "手机",
+        region: "华东",
+        sale: [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
+    }, {
+        product: "手机",
+        region: "华北",
+        sale: [80, 70, 90, 110, 130, 145, 150, 160, 170, 185, 190, 200]
+    }, {
+        product: "手机",
+        region: "华南",
+        sale: [220, 200, 240, 250, 260, 270, 280, 295, 310, 335, 355, 380]
+    }, {
+        product: "笔记本",
+        region: "华东",
+        sale: [50, 60, 80, 110, 30, 20, 70, 30, 420, 30, 20, 20]
+    }, {
+        product: "笔记本",
+        region: "华北",
+        sale: [30, 35, 50, 70, 20, 15, 30, 50, 710, 130, 20, 20]
+    }, {
+        product: "笔记本",
+        region: "华南",
+        sale: [80, 120, 130, 140, 70, 75, 120, 90, 550, 120, 110, 100]
+    }, {
+        product: "智能音箱",
+        region: "华东",
+        sale: [10, 30, 4, 5, 6, 5, 4, 5, 6, 5, 5, 25]
+    }, {
+        product: "智能音箱",
+        region: "华北",
+        sale: [15, 50, 15, 15, 12, 11, 11, 12, 12, 14, 12, 40]
+    }, {
+        product: "智能音箱",
+        region: "华南",
+        sale: [10, 40, 10, 6, 5, 6, 8, 6, 6, 6, 7, 26]
+    }]
+    myStorage.sourcedata=JSON.stringify(sourcedata);
+    
+   
+
+</script>
+<script src="js/js-31data.js"></script>
+<script src="js/js-3701.js"></script>
+<script src="js/js-3701-getdata.js"></script>
+<script src="js/js-3701-createtable.js"></script>
+<script src="js/js-3701-saveStorage.js"></script>
+<script src="js/js-3701-drow.js"></script>
+
+
+
+
+
+</html>

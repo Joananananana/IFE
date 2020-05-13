@@ -29,7 +29,7 @@ function createTable(data){
             var sale=datalist[i].sale;
             for(var j=0;j<sale.length;j++){
                 var td=document.createElement("td");
-                td.innerHTML=sale[j];
+                td.innerHTML=sale[j];td.id="number";
                 tr.appendChild(td);
             }
             tr.appendChild(td);
@@ -63,7 +63,7 @@ function createTable(data){
             var sale=datalist[i].sale;
             for(var j=0;j<sale.length;j++){
                 var td=document.createElement("td");
-                td.innerHTML=sale[j];
+                td.innerHTML=sale[j];td.id="number";
                 tr.appendChild(td);
             }
             tr.appendChild(td);
@@ -95,7 +95,7 @@ function createTable(data){
             var sale=datalist[i].sale;
             for(var j=0;j<sale.length;j++){
                 var td=document.createElement("td");
-                td.innerHTML=sale[j];
+                td.innerHTML=sale[j];td.id="number";
                 tr.appendChild(td);
             }
             tr.appendChild(td);
@@ -123,7 +123,7 @@ function createTable(data){
             var sale=datalist[i].sale;
             for(var j=0;j<sale.length;j++){
                 var td=document.createElement("td");
-                td.innerHTML=sale[j];
+                td.innerHTML=sale[j];td.id="number";
                 tr.appendChild(td);
             }
             tr.appendChild(td);
@@ -132,6 +132,6 @@ function createTable(data){
     }
     var div=document.getElementById("table-wrapper");
     div.appendChild(table);
-
     
-}
+    }
+    
