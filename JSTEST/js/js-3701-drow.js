@@ -16,6 +16,7 @@
                 line(data);
             }
         function column(sourceData){        //柱状图
+            var color=["lightpink","Lavender","CornflowerBlue","CadetBlue","Khaki","Orange","Tomato","SandyBrown","LightBlue","RoyalBlue","MediumPurple","BlueViolet"] ;
             var svg=document.getElementById("svg");
             svg.innerHTML="";
             var sale=sourceData[0].sale;
@@ -30,7 +31,7 @@
             var y=[];
             for(var i=0;i<sale.length;i++){
                 height[i]=Math.round(each*Number(sale[i]));
-                y[i]=300-height[i];      
+                y[i]=300-height[i]-1;      
             }
             var x=[];x[0]=40;
             for(var i=1;i<y.length;i++){
@@ -57,7 +58,7 @@
                 rect.setAttribute('y',y[i]);
                 rect.setAttribute('width',"24");
                 rect.setAttribute('height',height[i]);
-                rect.style.fill="rgba(226, 10, 46, 0.404)";
+                rect.style.fill=color[i];
                 svg.appendChild(rect);
             }
          }
@@ -120,7 +121,7 @@
                      data[i-1].sale[j-2]=input[0].value;
                 }
         }
-        var color=["palevioletred","plum","silver","black","blue","seagreen","green","red","yellow"] ;
+        var color=["CornflowerBlue","lightpink","CadetBlue","Lavender","Khaki","Orange","Tomato","SandyBrown","LightBlue"];
         var sale=[];
         var max=0;
         for(var i=0;i<data.length;i++)
