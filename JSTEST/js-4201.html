@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>招聘与解雇</title>
+  </head>
+
+  <body>
+    <p>This example requires you to enter commands in your browser's JavaScript console (see <a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools">What are browser developer tools</a> for more information).</p>
+
+  </body>
+
+    <script>
+        //var stafflist=[];
+        function Restaurant(money, seat, stafflist) {
+            this.money=money;
+            this.seat=seat;
+            this.stafflist=stafflist;
+        };
+        Restaurant.prototype.recruit=function(name,work){
+            if(work==1){//1为服务员
+                var waiter=new Waiter(this.stafflist.length+1,name,3000);
+                this.stafflist.push([this.stafflist.length+1,name,3000,1]);
+            }
+            if(work==2){//2为厨师
+                var cook=new Cook(this.stafflist.length+1,name,10000,);
+                this.stafflist.push([this.stafflist.length+1,name,10000,2]);
+            }
+        }
+        Restaurant.prototype.fire=function(name){
+            for(var i=0 in this.stafflist){
+                if(this.stafflist[i][1]==name){
+                    this.stafflist.splice(i,1);
+                    break;
+                }
+            }
+        }
+        function Staff(ID,name,wages){
+            this.ID=ID;
+            this.name=name;
+            this.wages=wages;
+        }
+        Staff.prototype.finishwork=function(){
+
+        }
+        function Waiter(ID,name,wages){
+            Staff.call(this,ID,name,wages);
+        }
+        Waiter.prototype=Object.create(Staff.prototype);
+        Waiter.prototype.constructor=Waiter;
+        Waiter.prototype.finishwork=function(parameter){
+            if(typeof(parameter)==Object)
+                console.log('Record the orders！');
+            else
+                console.log('Serve the dishes!');
+        }
+        function Cook(ID,name,wages){
+            Staff.call(this,ID,name,wages);
+        }
+        Cook.prototype=Object.create(Staff.prototype);
+        Cook.prototype.constructor=Cook;
+        Cook.prototype.finishwork=function(){
+            console.log('The meal is ready!' )
+        }
+        function Customer(){}
+        Customer.prototype.order=function(){
+
+        }
+        Customer.prototype.eat=function(){
+
+        }
+        function Food(name,cost,price){
+            this.name=name;
+            this.const=cost;
+            this.price=price;
+        }
+        
+        var restaurant=new Restaurant(10000000,20,[]);
+        restaurant.recruit('Cindy',2);
+        restaurant.recruit('Mike',1);
+        var stafflist1=restaurant.stafflist;
+        document.write(stafflist1);
+        restaurant.fire('Mike');
+        var stafflist=restaurant.stafflist;
+        document.write("<br/>");
+        document.write(stafflist);
+</script>
+</html>
