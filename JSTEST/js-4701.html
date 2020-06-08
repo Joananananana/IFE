@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>工厂模式</title>
+  </head>
+  <body>
+  </body>
+
+  <script>
+//工厂方法模式是将创建对象的工作推到子类中进行；也就是相当于工厂总部不生产产品了，交给下辖分工厂进行生产；
+//但是进入工厂之前，需要有个判断来验证你要生产的东西是否是属于我们工厂所生产范围，如果是，就丢给下辖工厂来进行生产，
+//如果不行，那么要么新建工厂生产要么就生产不了；
+function factory(role,ID,name){
+    function Restaurant() {
+            this.money=100000;
+            this.seat=1;
+            this.stafflist=[];
+        };
+        Restaurant.prototype.recruit=function(name,work){
+            if(work==1){//1为服务员
+                //var waiter=Onewaiter.getInstance(this.stafflist.length+1,name,3000);
+                this.stafflist.push([this.stafflist.length+1,name,3000,1]);
+            }
+            if(work==2){//2为厨师
+                //var cook=Onecook.getInstance(this.stafflist.length+1,name,10000);
+                this.stafflist.push([this.stafflist.length+1,name,10000,2]);
+            }
+        }
+        Restaurant.prototype.fire=function(name){
+            for(var i=0 in this.stafflist){
+                if(this.stafflist[i][1]==name){
+                    this.stafflist.splice(i,1);
+                    break;
+                }
+            }
+    }  
+    function Staff(ID,name,wages){
+        this.ID=ID;
+        this.name=name;
+        this.wages=wages;
+    }
+    
+    var Onewaiter =(function(){         
+        var instance = null;
+        function Waiter(ID,name,wages){
+            Staff.call(this,ID,name,wages);
+            //检验单例模式
+            //console.log(this.name+' waiter is created!');
+        };
+        Waiter.prototype = {
+            constructor: Waiter,
+            finishwork: function(para){       // 如果参数是个数组，则记录客人点菜，如果参数不是数组则是上菜行为
+                if(typeof(para)=='object'){
+                    console.log('Waiter: The customer has completed the order!');
+                }
+                else 
+                    console.log('Waiter: It\'s time to serve the dishes!');
+            }
+        };
+        return {
+            name: 'OneWaiter',
+            getInstance: function(ID,name,wages){
+                if( instance === null ){
+                    instance = new Waiter(ID,name,wages);
+                }
+                return instance;              //返回实例
+            }
+        };
+    })();
+    var Onecook =(function(){         
+        var instance = null;
+        function Cook(ID,name,wages){
+            Staff.call(this,ID,name,wages);
+            //检验单例模式
+            //console.log(this.name+' cooker is created!');
+        };
+        Cook.prototype = {
+            constructor: Cook,
+            finishwork: function(){
+                console.log('Cooker: The meal is ready!');
+            }
+        };
+        return {
+            name: 'OneCook',
+            getInstance: function(ID,name,wages){
+                if( instance === null ){
+                    instance = new Cook(ID,name,wages);  //创建厨师
+                }
+                return instance;              //返回实例
+            }
+        };
+    })();
+    function Customer(){}
+        Customer.prototype={
+            order:function(){
+                var food=new Food();
+                return [food.ID,food.const,food.price];
+            },
+            eat:function(){
+                console.log('Customer: I\'m full. Let\'s go!');
+            }
+        }
+
+    function Food(){
+            this.ID=Math.floor(Math.random()*3)+1; // [n,m] 范围内的随机整数  Math.floor(Math.random() * (m - n + 1)) + n;;
+            if(this.ID==1){
+                this.const=20;
+                this.price=30;
+            }
+            if(this.ID==2){
+                this.const=40;
+                this.price=60;
+            }
+            if(this.ID==3){
+                this.const=60;
+                this.price=80;
+            }
+    }
+        switch(role){
+            case "Restaurant":
+                return new Restaurant();
+                break;
+
+            case "Waiter":
+                return Onewaiter.getInstance(ID,name,3000);
+                break;
+            
+            case "Cook":
+                return Onecook.getInstance(ID,name,10000);
+                break;
+            case "Customer":
+                return new Customer();
+                break;
+            case "Food":
+                return new Food();
+                break;
+        }
+    }
+    var restaurant=factory("Restaurant");
+    var waiter=factory("Waiter",restaurant.stafflist.length+1,"Jenny");
+    restaurant.recruit('Jenny',1);
+    var cook=factory("Cook",restaurant.stafflist.length+1,"Jack");
+    restaurant.recruit('Jack',2);
+    console.log(restaurant);
+    var customer=factory("Customer");
+    console.log(customer.order());
+  </script>
+</html>
