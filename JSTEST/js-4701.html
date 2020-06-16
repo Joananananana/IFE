@@ -5,11 +5,10 @@
     <title>工厂模式/Promise</title>
     <style>
         body{
-            padding-left: 20px;
+            padding-left: 100px;
+            padding-top: 20px;
         }
-        section:nth-of-type(2){
-            width: 900px;
-        }
+        
         section:nth-of-type(1){
             height:110px;
             display: flex;
@@ -23,63 +22,89 @@
         section:nth-of-type(1) article:nth-of-type(2){
             flex:4;
         }
-       
+        section:nth-of-type(2){
+            width: 900px;
+            display: flex;
+            
+        }
+        section:nth-of-type(2) article{
+            flex: 1.8;
+        }
+        section:nth-of-type(2) article:nth-of-type(2){
+            flex: 1;
+        }
+        
         img{
             width: auto;
             height: auto;
             max-width: 100%;
             max-height: 100%;
         }
-        #sta{
-            float: left;
+        ul{
+            padding: 0;
         }
-        #cooking{
-            float: left;
-            display: none;
-            flex:1;
+        li{
+            padding-left: 75px;
+            list-style: none;
         }
-        #eating{
-            display: none;
-            margin-left: 750px;
-            
+        #res{
+            border: 1px solid purple ;
+            width:1000px;
+            height: 400px;
+            padding-left: 50px;
+            padding-top: 50px;
         }
-        #menu,#eatlist{
-            margin-top: 0;
+        #resm{
+            position: relative;
+            height: 30px;
+        }
+        #resmoney{
+            width: 100px;
+            position:  absolute;
+            left: 450px;
+        }
+        #money{
+            width: 70px;
+            position: absolute; 
+            left: 80px;
+            top:0;
         }
     </style>
   </head>
   <body>
-      <div style="width:100%">
-          <div style="width: 70px;position: relative;">餐厅余额:
-            <div style="width: 70px;position: absolute; left: 80px; top:0" id="money"></div>
+      <div id="resm" style="font-size: large;">
+          <div id="resmoney" >餐厅余额:
+            <div id="money"></div>
           </div>
       </div>
-      <div style="border: 1px solid goldenrod ;width:900px;height: 220px;">
+      <div id="res" >
       <section >
         <article >
-            <img  src="cook.jpg">
+            <img  src="img/cook.jpg">
         </article>
         <article >
-            <img id="picwaiter"  src="waiter.jpeg">
+            <img id="picwaiter"  src="img/waiter.jpeg">
         </article>  
         <article >
-            <img id="seat"  src="seat.jpg">
+            <img id="seat"  src="img/seat.jpg">
         </article> 
       </section>
       <section>
-          <article id="sta" >
-            厨师现在闲!
-          </article>
-          <article id="cooking">
-            厨师正在做!
-                <ul id="menu" >
-                </ul>
-          </article>
-          <article id="eating">
-            顾客正在吃!
-                <ul id="eatlist" >
-                </ul>
-          </article>
+        <article>
+        <p id="sta">
+            厨师状态：<span id="chefStatus">空闲</span>(剩余时间:<span id="timeleft1"></span>)</p>
+        </p>
+        <p id="cooking">   
+            <ul id="cooklist">厨师菜单：</ul>
+        </p>
+        </article>
+        <article>
+        <p id="eating">
+            顾客状态：<span id="cusStatus"></span>(剩余时间：<span id="timeleft2"></span>)
+            <ul id="eatlist" >顾客菜单：
+            </ul>
+        </p>  
+        </article> 
       </section>
     </div>
   </body>
@@ -122,24 +147,23 @@ function factory(role,ID,name){
         var instance = null;
         function Waiter(ID,name,wages){
             Staff.call(this,ID,name,wages);
-            //检验单例模式
-            //console.log(this.name+' waiter is created!');
         };
         Waiter.prototype = {
             constructor: Waiter,
             finishwork: function(para){      
                 
-                if(para==1){
+                if(typeof(para)=='object'){          
                     waiterMove(2);//服务员从顾客移动到厨师位置
-                    console.log('Waiter: 把菜单传递给厨师！(0.5s)');
+                    console.log('Waiter: 把菜单传递给厨师！(1s)');
+                    addlist('cooklist',para);
                 }
                 if(para==2){
                     waiterMove(1);//服务员从厨师移动到顾客位置
-                    console.log('Waiter:上菜了！(0.5s)'); //上菜
-                }
-                if(para==3){
-                    waiterMove("5");//服务员从顾客移动到中间
-                    console.log('Waiter: 顾客结账！');
+                    console.log('Waiter:上菜了！(1s)'); //上菜
+                    setTimeout(() => {
+                        waiterMove(2);//服务员从顾客移动到厨师位置
+                    }, 1000);
+                    
                 }
             }
         };
@@ -157,13 +181,11 @@ function factory(role,ID,name){
         var instance = null;
         function Cook(ID,name,wages){
             Staff.call(this,ID,name,wages);
-            //检验单例模式
-            //console.log(this.name+' cooker is created!');
         };
         Cook.prototype = {
             constructor: Cook,
-            finishwork: function(){
-                console.log('Cooker: The meal is ready!');
+            finishwork: function(para){
+                console.log('Cooker:'+para+'做好了！');
             }
         };
         return {
@@ -195,12 +217,9 @@ function factory(role,ID,name){
                     }
                     idd.push(id);
                 }
-                
+                addlist('eatlist',order);
                 return order;
             },
-            // eat:function(){
-            //     console.log('Customer: I\'m full. Let\'s go!');
-            // }
         }
 
     function Food(ID){
@@ -209,19 +228,19 @@ function factory(role,ID,name){
                 this.name="鱼香肉丝";
                 this.cost=20;
                 this.price=30;
-                this.time=1;
+                this.time=3;
             }
             if(ID==2){
                 this.name="龙井虾仁";
                 this.cost=40;
                 this.price=60;
-                this.time=2;
+                this.time=4;
             }
             if(ID==3){
                 this.name="油焖大虾";
                 this.cost=60;
                 this.price=80;
-                this.time=3;
+                this.time=5;
             }
     }
         switch(role){
@@ -249,188 +268,234 @@ function factory(role,ID,name){
     restaurant.recruit('Jenny',1);
     var cook=factory("Cook",restaurant.stafflist.length+1,"Jack");
     restaurant.recruit('Jack',2);
-    // var customer=factory("Customer");
-    // console.log(customer.order());
     var money=document.getElementById("money"); //餐厅余额
-    money.innerHTML=restaurant.money;
-    var cooking=document.getElementById("cooking"); //厨师正在烹饪的菜单板块
-    var menu=document.getElementById("menu"); //厨师正在烹饪的菜单
-    var eating=document.getElementById("eating");
-    var eatlist=document.getElementById("eatlist");//顾客正在吃的菜单
-    var sta=document.getElementById("sta");  //厨师状态
-    var picwaiter=document.getElementById("picwaiter");
-    var seat=document.getElementById("seat");
-    var log=document.getElementById("log");
-        //log.insertAdjacentHTML('beforeend','开始营业<br/>');
-        console.log('开始营业');
-    Procedure();
-    function waiterMove(direction){
-        //服务员移动到顾客位置
+    money.innerHTML=restaurant.money; 
+    console.log('开始营业');
+   
+    function waiterMove(direction){//服务员移动
         if(direction==1)//从左向右移动
             {
                 var imgleft=0;
-                for(var i=0;i<10;i++){
+                var inter=setInterval(() => {
                     imgleft+=50;
-                    let left=imgleft;
-                    setTimeout(function(){
-                        picwaiter.style.margin="0 0 0 "+left+"px";
-                    },50)
-                }
+                    picwaiter.style.margin="0 0 0 "+imgleft+"px";
+                    if(imgleft>499){
+                        clearInterval(inter);
+                    }
+                }, 100);
+                
             }
         if(direction==2)//从右向左移动
-        {
-            var imgright=500;
-            for(var i=0;i<10;i++){
-                imgright-=50;
-                let right=imgright;
-                setTimeout(function(){
-                    picwaiter.style.margin="0 0 0 "+right+"px";
-                },50)
-            }}
-        if(direction==3)//从中间向右移动
-            {
-                var imgleft=250;
-                for(var i=0;i<10;i++){
-                    imgleft+=25;
-                    let left=imgleft;
-                    setTimeout(function(){
-                        picwaiter.style.margin="0 0 0 "+left+"px";
-                    },50)
-                }}
-        if(direction==4)//从中间向左移动
-        {
-            var imgright=250;
-            for(var i=0;i<10;i++){
-                imgright-=25;
-                let right=imgright;
-                setTimeout(function(){
-                    picwaiter.style.margin="0 0 0 "+right+"px";
-                },50)
-            }}
-        if(direction==5){ //从右边回到中间
-            var imgright=500;
-            for(var i=0;i<10;i++){
-                imgright-=25;
-                let right=imgright;
-                setTimeout(function(){
-                    picwaiter.style.margin="0 0 0 "+right+"px";
-                },50)
-            }}
+        {   var imgright=500;
+                var inter=setInterval(() => {
+                    imgright-=50;
+                    picwaiter.style.margin="0 0 0 "+imgright+"px";
+                    if(imgright<1){
+                        clearInterval(inter);
+                    }
+                }, 100);
+            }  
         }
-    
-    function Procedure(){
-        let p1=new Promise(
-            (resolve,reject)=>{
-                setTimeout(
-                    function(){
-                        seat.src="custom.jpg";
-                        console.log("过了2秒，顾客来了！");
-                        waiterMove(3);//服务员移动到顾客位置
+    function updateResMoney(cost){//更新餐厅金额
+        var money=document.getElementById("money");         
+        var m=Number(money.innerHTML);
+        money.innerHTML=m-cost;
+
+    }
+   function addlist(listn,arr){ //添加菜单 listn为要添加li的ul的id
+        var list=document.getElementById(listn);
+        for(let i=0;i<arr.length;i++){
+            var li=document.createElement("li");
+            li.innerHTML=arr[i].name+'(<span>还未上</span>)';
+            list.appendChild(li);
+        }
+   }
+   function interval(a){ //顾客到来时间计时 顾客点菜时间计时
+        var chefStatus=document.getElementById("chefStatus"); //厨师状态
+        var cusStatus=document.getElementById("cusStatus");//顾客状态
+        var timeleft2=document.getElementById("timeleft2");
+        var timeleft1=document.getElementById("timeleft1");
+        if(a==1){
+            var t=2.0.toFixed(1);
+                var interval=setInterval(() => {
+                    cusStatus.innerHTML='顾客即将到来';
+                    timeleft2.innerHTML=t;
+                    t=(t-0.1).toFixed(1);
+                    if(t<0) {
+                        clearInterval(interval); 
+                        cusStatus.innerHTML='顾客即将开始点菜';
+                    }
+                }, 100);
+        }
+        if(a==2){
+            var t=2.0.toFixed(1);
+                                var interval=setInterval(() => {
+                                    cusStatus.innerHTML='顾客即将开始点菜';
+                                    timeleft2.innerHTML=t;
+                                    t=(t-0.1).toFixed(1);
+                                    if(t<0) {
+                                        clearInterval(interval); 
+                                        cusStatus.innerHTML='顾客开始点菜';
+                                    }
+                                }, 100);
+        }
+        if(a==3){
+            var t=2.0.toFixed(1);
+                var interval=setInterval(() => {
+                    cusStatus.innerHTML='顾客点菜中';
+                    timeleft2.innerHTML=t;
+                    t=(t-0.1).toFixed(1);
+                    if(t<0) {
+                        clearInterval(interval); 
+                        cusStatus.innerHTML='点完菜';
+                    }
+                }, 100);
+        }
+   } 
+   function cookInterval(time,name){ //厨师做每一个菜计时
+        var chefStatus=document.getElementById("chefStatus"); //厨师状态
+        var timeleft1=document.getElementById("timeleft1");
+        var cooklist=document.getElementById("cooklist"); //厨师烹饪的菜单
+        var t=time.toFixed(1);
+        var interval=setInterval(() => {
+        chefStatus.innerHTML='正在做'+name;
+        timeleft1.innerHTML=t;
+        t=(t-0.1).toFixed(1);
+        if(t<0) {
+            
+            chefStatus.innerHTML='做完了';
+            cooklist.removeChild(cooklist.childNodes[1]);
+            clearInterval(interval); 
+        }
+    }, 100);
+  }
+  function eatInterval(name,i){//顾客吃每一个菜计时
+        var eatlist=document.getElementById("eatlist");
+        var cusStatus=document.getElementById("cusStatus");//顾客状态
+        var timeleft2=document.getElementById("timeleft2");
+        cusStatus.innerHTML='正在吃'+name;
+        eatlist.getElementsByTagName('span')[i].innerHTML='已上菜';
+        var t=3.0.toFixed(1);
+        var interval=setInterval(() => {
+        timeleft2.innerHTML=t;
+        t=(t-0.1).toFixed(1);
+        if(t<0) {
+            clearInterval(interval); 
+            //cusStatus.innerHTML='吃完了';
+        }
+    }, 100);
+ }
+ function payInterval(sum){
+        var cusStatus=document.getElementById("cusStatus");//顾客状态
+        var timeleft2=document.getElementById("timeleft2");
+        var eatlist=document.getElementById("eatlist");
+        eatlist.innerHTML="顾客菜单：";
+        cusStatus.innerHTML='支付中';
+        var t=2.0.toFixed(1);
+        var interval=setInterval(() => {
+        timeleft2.innerHTML=t;
+        t=(t-0.1).toFixed(1);
+        if(t<0) {
+            clearInterval(interval); 
+            updateResMoney(-sum);
+            seat.src="img/seat.jpg";
+            Procedure();
+        }
+    }, 100);
+ }
+Procedure();
+ function Procedure(){
+        let p1=Promise.resolve();
+            p1=p1.then(()=>{
+                return new Promise(function(resolve,reject){
+                        interval(1);
                         setTimeout(
-                        function(){
-                            console.log('过了0.5秒，顾客开始点菜');
+                            function(){
+                                console.log("过了2秒，顾客来了！");
+                                var seat=document.getElementById("seat");
+                                seat.src="img/custom.jpg";
+                                waiterMove(1);//服务员移动到顾客位置
+                                interval(2);
+                                resolve();
+                            },2000)
+                        
+                
+                })
+                }).then(()=>{
+                        return new Promise((resolve,reject)=>{
                             setTimeout(
                             function(){
+                                console.log('过了2秒，顾客开始点菜');
+                                interval(3);
+                                //顾客菜单
+                                resolve();
+                            },2000);
+                        })
+                        
+                }).then(()=>{ 
+                    return new Promise((resolve,reject)=>{
+                            setTimeout(
+                            function(){
+                                console.log('过了2秒，顾客点完菜');
                                 var customer=factory("Customer");
                                 var order=customer.order();   //顾客点菜
-                                sta.style.display="none";        //隐藏厨师free
-                                var ordernum=order.length;
-                                var cooktime=0;
-                                var foodname="";
-                                var foodcost=0;
-                                var food=[]; //烹饪时间
-                                for(var i=0;i<ordernum;i++){
-                                    cooktime+=order[i].time;
-                                    foodname+=order[i].name;
-                                    foodcost+=order[i].cost;
-                                    food.push([order[i].name,order[i].time,order[i].price]);
-                                    cooking.style.display="block"; //增加厨师正在烹饪的菜单
-                                    var menuli=document.createElement("li");
-                                    menuli.innerHTML=order[i].name;
-                                    menu.appendChild(menuli);
+                                var cost=0;                   //菜品cost
+                                for(var i=0;i<order.length;i++){
+                                    cost+=order[i].cost;
                                 }
-                                
-                                var money=document.getElementById("money");           //显示餐厅金额
-                                var m=Number(money.innerHTML);
-                                money.innerHTML=m-foodcost;
-                                console.log('过了2秒，顾客点了'+ordernum+'个菜,'+foodname+',烹饪需要'+cooktime+'秒');
-                                setTimeout(
-                                    function(){
-                                        waiter.finishwork(1);
-                                        resolve(food); //过了0.5秒，服务员把菜单交给厨师
-                                    },500 
-                                )
-                            },2000
-                            );
-                        },500
-                );
-                    },2000
-                );
-            }
-        );
-        p1.then(         //厨师做菜
-            function(val){   
-                var t=0;
-                var price=0;
-                for(var i=0;i<val.length;i++){   //厨师不必等待服务员上菜后再开始做另一个菜
-                    var t=t+val[i][1];  //for循环一直在进行无法异步，用叠加菜品烹饪时间记录每一个菜烹饪完成的时间
-                    let ii=i;//循环会改变i值 无法在异步事件时获取正确的i
-                    price+=val[ii][2];
-                    setTimeout(
+                                updateResMoney(cost);        //更新餐厅金额
+                                resolve(order);
+                            },2000);
+                        })
+                    
+                }).then((food)=>{
+                    return new Promise((resolve,reject)=>{
+                        waiter.finishwork(food);//服务员传菜单
+                        setTimeout(
                         function(){
-                            let p2=new Promise(
-                                (resolve,reject)=>{
-                                    setTimeout(
-                                    function(){
-                                        console.log('过了'+val[ii][1]+'秒，'+val[ii][0]+'做好了');
-                                        resolve([val[ii][0],price]);   //name price
+                            resolve(food);         //服务员传菜单需要1s 1s后厨师开始做菜
+                        },1000)
+                    })
+                }).then((food)=>{
+                        let p2=Promise.resolve();
+                        let p3=Promise.resolve();
+                        let sum=0;
+                        for(let i=0;i<food.length;i++){
+                            sum+=food[i].price;
+                            p2=p2.then(()=>{    //厨师做菜
+                                cookInterval(food[i].time,food[i].name);
+                                return new Promise((resolve,reject)=>{
+                                    setTimeout(() => {
+                                        
+                                        resolve(food[i].name);
+                                    }, food[i].time*1000);
+                                })
+                            }).then((val)=>{
+                                cook.finishwork(val);   //厨师做完一个菜
+                                waiter.finishwork(2);   //服务员上菜
+                                return new Promise((resolve,reject)=>{
+                                    setTimeout(() => {
+                                        resolve(val);   
+                                    }, 1000);
+                                })
+                            }).then((val)=>{              //上菜 
+                                    eatInterval(val,i);
+                                    if(i==food.length-1){
+                                        return new Promise((resolve,reject)=>{
+                                            setTimeout(() => {    //最后一个菜吃完结账
+                                                resolve(sum);
+                                            }, 3000);
+                                        }).then(()=>{
+                                            payInterval(sum);
+                                        })
                                     }
-                                    )
-                                }
-                            )
-                            p2.then(
-                                function(val){
-                                    setTimeout(
-                                        function(){
-                                            waiter.finishwork(2);//上菜
-                                            eating.style.display="block";
-                                            var eatli=document.createElement("li"); //添加顾客正在品尝的菜单
-                                            eatli.innerHTML=val[0];
-                                            eatlist.appendChild(eatli);
-                                            setTimeout(      
-                                                function(){
-                                                    eatlist.removeChild(eatlist.childNodes[1]);
-                                                    if(eatlist.childElementCount==0){
-                                                        eating.style.display="none";
-                                                        if(menu.childElementCount==0)
-                                                            var m=Number(money.innerHTML);         //结账
-                                                            waiter.finishwork(3);
-                                                            money.innerHTML=m+val[1];
-                                                            seat.src="seat.jpg";
-                                                            
+                            })
+                        }
+                })
+            }
 
-                                                    }
-                                                },3000    //每份菜食用时间3s
-                                            )
-                                        },500 //    //服务员上菜时间0.5s
-                                    )
-                                    if(menu.childElementCount!=0){      //服务员上菜后若还有菜品未上则立即回到厨师身边
-                                        waiterMove(2);                    //服务员移动到厨师位置
-                                    }
-                                    menu.removeChild(menu.childNodes[1]); //为什么是1     //服务员上菜后删除厨师菜单上的这个菜
-                                    if(menu.childElementCount==0){ //所有菜品烹饪完成 
-                                        cooking.style.display="none";   
-                                        sta.style.display="block";
-                                    }
-                                }
-                            )
-                        },t*1000   //做每个菜的时间     
-                    )
-                    
-                    
-                }
-            }    
-        )
-    }    
+            
+              
+       
   </script>
 </html>
