@@ -277,23 +277,23 @@ function factory(role,ID,name){
             {
                 var imgleft=0;
                 var inter=setInterval(() => {
-                    imgleft+=50;
+                    imgleft+=5;
                     picwaiter.style.margin="0 0 0 "+imgleft+"px";
                     if(imgleft>499){
                         clearInterval(inter);
                     }
-                }, 100);
+                }, 10);
                 
             }
         if(direction==2)//从右向左移动
         {   var imgright=500;
                 var inter=setInterval(() => {
-                    imgright-=50;
+                    imgright-=5;
                     picwaiter.style.margin="0 0 0 "+imgright+"px";
                     if(imgright<1){
                         clearInterval(inter);
                     }
-                }, 100);
+                }, 10);
             }  
         }
     function updateResMoney(cost){//更新餐厅金额
