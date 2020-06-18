@@ -275,22 +275,21 @@ function factory(role,ID,name){
     function waiterMove(direction){//服务员移动
         if(direction==1)//从左向右移动
             {
-                var imgleft=0;
+                var right=0;
                 var inter=setInterval(() => {
-                    imgleft+=5;
-                    picwaiter.style.margin="0 0 0 "+imgleft+"px";
-                    if(imgleft>499){
+                    right+=0.8;
+                    picwaiter.style.margin="0 0 0 "+right+"%";
+                    if(right>=80){
                         clearInterval(inter);
                     }
                 }, 10);
-                
             }
-        if(direction==2)//从右向左移动
-        {   var imgright=500;
+        if(direction==2)//从右向左
+        {   var left=80;
                 var inter=setInterval(() => {
-                    imgright-=5;
-                    picwaiter.style.margin="0 0 0 "+imgright+"px";
-                    if(imgright<1){
+                    left-=0.8;
+                    picwaiter.style.margin="0 0 0 "+left+"%";
+                    if(left<=1){
                         clearInterval(inter);
                     }
                 }, 10);
