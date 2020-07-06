@@ -1,0 +1,52 @@
+<script>
+//订阅的主题 保存状态 状态变化后触发所有观察者对象
+class Subject{         
+    constructor(){
+        this.state=0                    //状态
+        this.observers=[]               //所有观察者对象 
+    }
+    getState(){
+        return this.state
+    }
+    setState(state){
+        this.state=state
+        this.notifyAllObservers()         //状态改变 触发函数
+    }
+    notifyAllObservers(){
+        this.observers.forEach(observer=>{
+            observer.update();
+        })
+    }
+    attach(observer){                     //添加观察者
+        this.observers.push(observer)
+    }
+}
+//观察者
+class observer{
+    constructor(name,subject){
+        this.name=name
+        this.subject=subject
+        this.subject.attach(this)   //将观察者添加到订阅中
+    }
+    update(){
+        console.log(this.name+' '+this.subject.getState())
+    }
+}
+let s=new Subject();
+let o1=new observer('o1',s);
+let o2=new observer('o2',s);
+s.setState(1);
+</script>
+
+
+
+
+<!-- 
+顾客入座  改变顾客状态 执行入座函数 触发服务员点菜
+                     此时所有服务员忙碌  过1秒后再次查看服务员是否空闲
+                                                         
+服务员状态 由1变为0 
+
+厨师状态 由1变为0 再次触发做菜 
+        每次服务员传菜单后 触发做菜
+ -->

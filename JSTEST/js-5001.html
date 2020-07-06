@@ -1,0 +1,198 @@
+<html>
+    <head>
+        <style>
+            body{
+                padding:20px 200px 200px 200px;
+            }
+            #res{
+                display: flex;
+                height: 400px;
+            }
+            #res article{
+                margin-left: 1px;
+                flex: 2;
+                border: 1px solid purple;
+                /* height: 450px; */
+            }
+            #res article:nth-of-type(2){
+                flex:0.6;
+            }
+            #res article:nth-of-type(3){
+                font-size:small;
+            }
+            #waiterlist{
+                padding-left: 30px;
+            }
+            #waitinglist{
+                
+                margin-left: 1px;
+                margin-top: 3px;
+                height: 200px;
+                border: 1px solid purple;
+                
+            }
+            ul{
+                padding: 0;
+                margin: 0;
+            }
+            li{
+                list-style: none;
+                margin: 0 0 0 60px;
+            }
+            p{
+                margin: 20 0 0 0;
+            }
+            #customer{
+                display: flex;
+                flex-direction: column;
+                /* height: 100%; */
+            }
+            #customer article{
+                /*当customer res均为id选择器时 为什么#res article:nth-of-type(2/3) 作用#customer article上
+                class选择器优先级高于id选择器
+                .res #customer时可以解决这个问题*/
+                flex: 1;                               
+                border: none;
+                margin:10px 0 0 10px;
+            }
+            #customer article:nth-of-type(3){
+                margin-bottom: -1px;
+            }
+            img{
+                width: 110px;
+                height:auto;
+                margin-top: 10px;
+            }
+            .rig{
+                width:50%;
+                float: left;
+            }
+            .lef{
+                width: 40%;
+                float: left;
+                padding-left: 30px;
+            }
+            #resm{
+            position: relative;
+            height: 30px;
+            }
+            #resmoney{
+                width: 100px;
+                position:  absolute;
+                left: 450px;
+            }
+            #money{
+                width: 70px;
+                position: absolute; 
+                left: 80px;
+                top:0;
+            }
+            #cook{
+                height: 100%;
+                display: flex; 
+                flex-direction: column;
+            }
+            #option{
+                flex: 1;
+                border-bottom: 1px solid purple; 
+                margin:0.1% 0.1% 0 0;
+            }
+            #cooking{
+                flex: 15; 
+                margin:0.2% 0.1% 0.1% 0.1%;
+            }
+            #cooklist{
+                width: 58.5%;
+                border: 1px solid purple;
+                height: 99.2%;
+                float: left;
+            }
+            #cookinglist{
+                width: 40.4%;
+                border: 1px solid purple;
+                height: 99.2%;
+                float: left;
+                margin-left: 0.1%;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <div id="resm" style="font-size: large;">
+            <div id="resmoney" >餐厅余额:
+              <div id="money"></div>
+            </div>
+        </div>
+        <section id="res">
+            <article >
+                <div id="cook" >
+                    <div id="option"  >
+                        <input id="emplyCook" type="button" value="招聘厨师">
+                        <input id="fireCook" type="button" value="解雇厨师">
+                        <input id="emplyWaiter" type="button" value="招聘服务员">
+                        <input id="fireWaiter" type="button" value="解雇服务员">
+                    </div>
+                    <div id="cooking" >
+                            <div id="cooklist" >
+                            </div>
+                            <div id="cookinglist" >
+                                <ul id="clist" >待做菜单：
+                                </ul>
+                            </div>
+                    </div>
+                </div>
+            </article>
+            <article id="waiterlist">
+            </article>
+            <article>
+                 <section id="customer">
+                    <article>
+                        <div class="lef" >
+                            <img id="seat" src="img/seat.jpg">
+                        </div>
+                        <div class="rig" >
+                            <p id="eating">
+                                顾客状态：<span id="cusStatus"></span><span id="timeleft2"></span>
+                                <ul id="eatlist" >顾客菜单：
+                                </ul>
+                            </p> 
+                        </div>
+                        
+                    </article>
+                    <article>
+                        <div class="lef" >
+                            <img id="seat" src="img/seat.jpg">
+                        </div>
+                        <div class="rig" >
+                            <p id="eating">
+                                顾客状态：<span id="cusStatus"></span><span id="timeleft2"></span>
+                                <ul id="eatlist" >顾客菜单：
+                                </ul>
+                            </p> 
+                        </div>
+                    </article>
+                    <article>
+                        <div class="lef" >
+                            <img id="seat" src="img/seat.jpg">
+                        </div>
+                        <div class="rig" >
+                            <p id="eating">
+                                顾客状态：<span id="cusStatus"></span><span id="timeleft2"></span>
+                                <ul id="eatlist" >顾客菜单：
+                                </ul>
+                            </p> 
+                        </div>
+                    </article>
+                 </section>   
+            </article>
+        </section>
+        <div id="waitinglist">
+            <div>等待队列：</div>
+        </div>
+    </body>
+    
+    <script src="js/js-50-cook.js"></script>
+    <script src="js/js-50-customer.js"></script>
+    <script src="js/js-50-waiter.js"></script>
+    <script src="js/js-50.js"></script>
+</html>
