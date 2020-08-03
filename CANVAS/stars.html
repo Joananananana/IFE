@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html class="no-js"> 
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+       <canvas id="canvas"></canvas>
+        
+        <script>
+            /** @type {HTMLCanvasElement} */
+            window.onload=function(){
+                var canvas=document.getElementById("canvas")
+                canvas.width=1600
+                canvas.height=800
+
+                var context=canvas.getContext('2d')
+
+                //线性渐变
+                var skyStyle=context.createLinearGradient(0,0,0,canvas.height);
+                skyStyle.addColorStop(0.0,'#4545E7')
+                skyStyle.addColorStop(1.0,'#7C7CDD')
+                context.fillStyle=skyStyle
+                //context.fillStyle='#7C7CDD'
+                context.fillRect(0,0,canvas.width,canvas.height)
+                for(var i=0;i<200;i++){
+                    var r=Math.random()*10
+                    var x=Math.random()*canvas.width
+                    //0.65 生成的星星的y坐标不会靠下
+                    var y=Math.random()*canvas.height*0.65 
+                    var a=Math.random()*360
+                    drawStar(context,x,y,r,a)
+                }
+
+                fillMoon(context, 2, 1200, 200, 50, 30)
+                drawLand(context)
+           
+            }
+            function drawStar(ctx,x,y,R,rot){
+                ctx.save()
+                ctx.translate(x,y)
+                ctx.rotate(rot/180*Math.PI)
+                ctx.scale(R,R)
+                starPath(ctx)    
+                //绘制在（x，y),大小为R，旋转rot度的五角星
+
+                ctx.fillStyle="#fb3"
+                //ctx.strokeStyle="#fd5"
+                //ctx.lineWidth=3
+                //ctx.lineJoin="round"
+
+                ctx.fill()
+               // ctx.stroke()
+                ctx.restore()
+               
+            }
+            function starPath(ctx){
+                ctx.beginPath()
+                for(var i=0;i<5;i++){
+                    ctx.lineTo(Math.cos((18+i*72)/180*Math.PI),-Math.sin((18+i*72)/180*Math.PI));
+                    ctx.lineTo(Math.cos((54+i*72)/180*Math.PI)*0.5,-Math.sin((54+i*72)/180*Math.PI)*0.5)
+                }
+                }
+                function fillMoon(ctx, d, x, y, R, rot, /*optional*/ fillColor) { //d 控制点横坐标
+            ctx.save()
+            ctx.translate(x, y) //重新映射画布上的 (0,0) 位置
+            ctx.rotate(rot * Math.PI / 180)
+            ctx.scale(R, R) //缩放
+            pathMoon(ctx, d)
+            ctx.fillStyle = fillColor || '#fb5'
+            ctx.fill()
+            ctx.restore()
+        }
+
+        //在以（0,0）点为圆心，半径为1的圆内进行绘制
+        function pathMoon(ctx, d) {
+            ctx.beginPath()
+            ctx.arc(0, 0, 1, 0.5 * Math.PI, 1.5 * Math.PI, true) //外圆弧
+            ctx.moveTo(0, -1)
+            
+            ctx.arcTo(d, 0, 0, 1, 1 * dis(0, -1, d, 0) / d)
+            //ctx.quadraticCurveTo(0.8*d,0,0,1)
+
+            ctx.closePath()
+        }
+
+        function dis(x1, y1, x2, y2) {
+            return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2))
+        }
+///////////////////////////////////////////////////////////////////////////    
+        function drawLand(ctx){
+            ctx.save()
+            ctx.beginPath()
+            ctx.moveTo(0,600)
+            ctx.bezierCurveTo(540,400,660,800,1600,600)
+            ctx.lineTo(1600,800)
+            ctx.lineTo(0,800)
+            ctx.closePath()
+
+            var landStyle=ctx.createLinearGradient(0,800,0,0)
+            landStyle.addColorStop(0.0,'#165d17bf')
+            landStyle.addColorStop(1.0,'#648454')
+            ctx.fillStyle=landStyle
+            ctx.fill()
+            
+            ctx.restore()
+
+        }
+        
+        </script>
+    </body>
+</html>

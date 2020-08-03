@@ -1,0 +1,53 @@
+<html>
+    <body>
+        <canvas id="canvas"></canvas>
+    </body>
+    <script>
+        var canvas=document.getElementById('canvas')
+        canvas.width=800
+        canvas.height=800
+
+        var ctx=canvas.getContext('2d')
+//////////////圆环
+        // ctx.beginPath()
+        // ctx.arc(400,400,300,0,Math.PI*2,false)
+        // ctx.arc(400,400,150,0,Math.PI*2,true)
+        // ctx.closePath()
+
+        // ctx.fillStyle="#058"
+        // ctx.shadowColor="gray"
+        // ctx.shadowOffsetX=10
+        // ctx.shadowOffsetY=20
+        // ctx.shadowBlur=10
+        // ctx.fill()
+///////////////////////////////////
+
+        ctx.beginPath()
+        ctx.rect(100,100,600,600)   //顺时针路径
+        pathRect(ctx,200,200,400,200)  //逆时针绘制
+        pathTriangle(ctx,300,450,150,650,450,650)//逆时针绘制
+        ctx.arc(550,500,100,0,Math.PI*2,true)
+        ctx.closePath()
+
+        ctx.fillStyle="#058"
+        ctx.shadowColor="gray"
+        ctx.shadowOffsetX=10
+        ctx.shadowOffsetY=20
+        ctx.shadowBlur=10
+        ctx.fill()
+
+        function pathRect(ctx,x,y,width,height){
+            ctx.moveTo(x,y)
+            ctx.lineTo(x,y+height)
+            ctx.lineTo(x+width,y+height)
+            ctx.lineTo(x+width,y)
+            ctx.lineTo(x,y)
+        }
+        function pathTriangle(ctx,x1,y1,x2,y2,x3,y3){
+            ctx.moveTo(x1,y1)
+            ctx.lineTo(x2,y2)
+            ctx.lineTo(x3,y3)
+            ctx.lineTo(x1,y1)
+        }
+    </script>
+</html>

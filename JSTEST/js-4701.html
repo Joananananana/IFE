@@ -1,259 +1,276 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>工厂模式/Promise</title>
     <style>
-        body{
+        body {
             padding-left: 100px;
             padding-top: 20px;
         }
-        
-        section:nth-of-type(1){
-            height:110px;
+
+        section:nth-of-type(1) {
+            height: 110px;
             display: flex;
             width: 900px;
         }
-        section:nth-of-type(1) article{
+
+        section:nth-of-type(1) article {
             width: 150px;
             height: 110px;
-            flex:1;
-        }
-        section:nth-of-type(1) article:nth-of-type(2){
-            flex:4;
-        }
-        section:nth-of-type(2){
-            width: 900px;
-            display: flex;
-            
-        }
-        section:nth-of-type(2) article{
-            flex: 1.8;
-        }
-        section:nth-of-type(2) article:nth-of-type(2){
             flex: 1;
         }
-        
-        img{
+
+        section:nth-of-type(1) article:nth-of-type(2) {
+            flex: 4;
+        }
+
+        section:nth-of-type(2) {
+            width: 900px;
+            display: flex;
+
+        }
+
+        section:nth-of-type(2) article {
+            flex: 1.8;
+        }
+
+        section:nth-of-type(2) article:nth-of-type(2) {
+            flex: 1;
+        }
+
+        img {
             width: auto;
             height: auto;
             max-width: 100%;
             max-height: 100%;
         }
-        ul{
+
+        ul {
             padding: 0;
         }
-        li{
+
+        li {
             padding-left: 75px;
             list-style: none;
         }
-        #res{
-            border: 1px solid purple ;
-            width:1000px;
+
+        #res {
+            border: 1px solid purple;
+            width: 1000px;
             height: 400px;
             padding-left: 50px;
             padding-top: 50px;
         }
-        #resm{
+
+        #resm {
             position: relative;
             height: 30px;
         }
-        #resmoney{
+
+        #resmoney {
             width: 100px;
-            position:  absolute;
+            position: absolute;
             left: 450px;
         }
-        #money{
+
+        #money {
             width: 70px;
-            position: absolute; 
+            position: absolute;
             left: 80px;
-            top:0;
+            top: 0;
         }
     </style>
-  </head>
-  <body>
-      <div id="resm" style="font-size: large;">
-          <div id="resmoney" >餐厅余额:
-            <div id="money"></div>
-          </div>
-      </div>
-      <div id="res" >
-      <section >
-        <article >
-            <img  src="img/cook.jpg">
-        </article>
-        <article >
-            <img id="picwaiter"  src="img/waiter.jpeg">
-        </article>  
-        <article >
-            <img id="seat"  src="img/seat.jpg">
-        </article> 
-      </section>
-      <section>
-        <article>
-        <p id="sta">
-            厨师状态：<span id="chefStatus">空闲</span>(剩余时间:<span id="timeleft1"></span>)</p>
-        </p>
-        <p id="cooking">   
-            <ul id="cooklist">厨师菜单：</ul>
-        </p>
-        </article>
-        <article>
-        <p id="eating">
-            顾客状态：<span id="cusStatus"></span>(剩余时间：<span id="timeleft2"></span>)
-            <ul id="eatlist" >顾客菜单：
-            </ul>
-        </p>  
-        </article> 
-      </section>
-    </div>
-  </body>
+</head>
 
-  <script>
-//工厂方法模式是将创建对象的工作推到子类中进行；也就是相当于工厂总部不生产产品了，交给下辖分工厂进行生产；
-//但是进入工厂之前，需要有个判断来验证你要生产的东西是否是属于我们工厂所生产范围，如果是，就丢给下辖工厂来进行生产，
-//如果不行，那么要么新建工厂生产要么就生产不了；
-function factory(role,ID,name){
-    function Restaurant() {
-            this.money=100000;
-            this.seat=1;
-            this.stafflist=[];
+<body>
+    <div id="resm" style="font-size: large;">
+        <div id="resmoney">餐厅余额:
+            <div id="money"></div>
+        </div>
+    </div>
+    <div id="res">
+        <section>
+            <article>
+                <img src="img/cook.jpg">
+            </article>
+            <article>
+                <img id="picwaiter" src="img/waiter.jpeg">
+            </article>
+            <article>
+                <img id="seat" src="img/seat.jpg">
+            </article>
+        </section>
+        <section>
+            <article>
+                <p id="sta">
+                    厨师状态：<span id="chefStatus">空闲</span>(剩余时间:<span id="timeleft1"></span>)</p>
+                </p>
+                <p id="cooking">
+                    <ul id="cooklist">厨师菜单：</ul>
+                </p>
+            </article>
+            <article>
+                <p id="eating">
+                    顾客状态：<span id="cusStatus"></span>(剩余时间：<span id="timeleft2"></span>)
+                    <ul id="eatlist">顾客菜单：
+                    </ul>
+                </p>
+            </article>
+        </section>
+    </div>
+</body>
+
+<script>
+    //工厂方法模式是将创建对象的工作推到子类中进行；也就是相当于工厂总部不生产产品了，交给下辖分工厂进行生产；
+    //但是进入工厂之前，需要有个判断来验证你要生产的东西是否是属于我们工厂所生产范围，如果是，就丢给下辖工厂来进行生产，
+    //如果不行，那么要么新建工厂生产要么就生产不了；
+    function factory(role, ID, name) {
+        function Restaurant() {
+            this.money = 100000;
+            this.seat = 1;
+            this.stafflist = [];
         };
-        Restaurant.prototype.recruit=function(name,work){
-            if(work==1){//1为服务员
+        Restaurant.prototype.recruit = function (name, work) {
+            if (work == 1) { //1为服务员
                 //var waiter=Onewaiter.getInstance(this.stafflist.length+1,name,3000);
-                this.stafflist.push([this.stafflist.length+1,name,3000,1]);
+                this.stafflist.push([this.stafflist.length + 1, name, 3000, 1]);
             }
-            if(work==2){//2为厨师
+            if (work == 2) { //2为厨师
                 //var cook=Onecook.getInstance(this.stafflist.length+1,name,10000);
-                this.stafflist.push([this.stafflist.length+1,name,10000,2]);
+                this.stafflist.push([this.stafflist.length + 1, name, 10000, 2]);
             }
         }
-        Restaurant.prototype.fire=function(name){
-            for(var i=0 in this.stafflist){
-                if(this.stafflist[i][1]==name){
-                    this.stafflist.splice(i,1);
+        Restaurant.prototype.fire = function (name) {
+            for (var i = 0 in this.stafflist) {
+                if (this.stafflist[i][1] == name) {
+                    this.stafflist.splice(i, 1);
                     break;
                 }
             }
-    }  
-    function Staff(ID,name,wages){
-        this.ID=ID;
-        this.name=name;
-        this.wages=wages;
-    }
-    
-    var Onewaiter =(function(){         
-        var instance = null;
-        function Waiter(ID,name,wages){
-            Staff.call(this,ID,name,wages);
-        };
-        Waiter.prototype = {
-            constructor: Waiter,
-            finishwork: function(para){      
-                
-                if(typeof(para)=='object'){          
-                    waiterMove(2);//服务员从顾客移动到厨师位置
-                    console.log('Waiter: 把菜单传递给厨师！(1s)');
-                    addlist('cooklist',para);
-                }
-                if(para==2){
-                    waiterMove(1);//服务员从厨师移动到顾客位置
-                    console.log('Waiter:上菜了！(1s)'); //上菜
-                    setTimeout(() => {
-                        waiterMove(2);//服务员从顾客移动到厨师位置
-                    }, 1000);
-                    
-                }
-            }
-        };
-        return {
-            name: 'OneWaiter',
-            getInstance: function(ID,name,wages){
-                if( instance === null ){
-                    instance = new Waiter(ID,name,wages);
-                }
-                return instance;              //返回实例
-            }
-        };
-    })();
-    var Onecook =(function(){         
-        var instance = null;
-        function Cook(ID,name,wages){
-            Staff.call(this,ID,name,wages);
-        };
-        Cook.prototype = {
-            constructor: Cook,
-            finishwork: function(para){
-                console.log('Cooker:'+para+'做好了！');
-            }
-        };
-        return {
-            name: 'OneCook',
-            getInstance: function(ID,name,wages){
-                if( instance === null ){
-                    instance = new Cook(ID,name,wages);  //创建厨师
-                }
-                return instance;              //返回实例
-            }
-        };
-    })();
-    function Customer(){}
-        Customer.prototype={
-            order:function(){
-                var ordernum=Math.floor(Math.random()*3)+1; // 随机点1到3个菜
-                var order=[];
-                var idd=[];
-                var flag=true;
-                for(var i=0;i<ordernum;i++){
-                    var id=Math.floor(Math.random()*3)+1;//选择不同菜品id 
-                    for(var j=0;j<idd.length;j++){
-                        if(idd[j]==id)
-                        flag=false;
+        }
+
+        function Staff(ID, name, wages) {
+            this.ID = ID;
+            this.name = name;
+            this.wages = wages;
+        }
+
+        var Onewaiter = (function () {
+            var instance = null;
+
+            function Waiter(ID, name, wages) {
+                Staff.call(this, ID, name, wages);
+            };
+            Waiter.prototype = {
+                constructor: Waiter,
+                finishwork: function (para) {
+
+                    if (typeof (para) == 'object') {
+                        waiterMove(2); //服务员从顾客移动到厨师位置
+                        console.log('Waiter: 把菜单传递给厨师！(1s)');
+                        addlist('cooklist', para);
                     }
-                    if(flag==true){
-                        var food=new Food(id);
+                    if (para == 2) {
+                        waiterMove(1); //服务员从厨师移动到顾客位置
+                        console.log('Waiter:上菜了！(1s)'); //上菜
+                        setTimeout(() => {
+                            waiterMove(2); //服务员从顾客移动到厨师位置
+                        }, 1000);
+
+                    }
+                }
+            };
+            return {
+                name: 'OneWaiter',
+                getInstance: function (ID, name, wages) {
+                    if (instance === null) {
+                        instance = new Waiter(ID, name, wages);
+                    }
+                    return instance; //返回实例
+                }
+            };
+        })();
+        var Onecook = (function () {
+            var instance = null;
+
+            function Cook(ID, name, wages) {
+                Staff.call(this, ID, name, wages);
+            };
+            Cook.prototype = {
+                constructor: Cook,
+                finishwork: function (para) {
+                    console.log('Cooker:' + para + '做好了！');
+                }
+            };
+            return {
+                name: 'OneCook',
+                getInstance: function (ID, name, wages) {
+                    if (instance === null) {
+                        instance = new Cook(ID, name, wages); //创建厨师
+                    }
+                    return instance; //返回实例
+                }
+            };
+        })();
+
+        function Customer() {}
+        Customer.prototype = {
+            order: function () {
+                var ordernum = Math.floor(Math.random() * 3) + 1; // 随机点1到3个菜
+                var order = [];
+                var idd = [];
+                var flag = true;
+                for (var i = 0; i < ordernum; i++) {
+                    var id = Math.floor(Math.random() * 3) + 1; //选择不同菜品id 
+                    for (var j = 0; j < idd.length; j++) {
+                        if (idd[j] == id)
+                            flag = false;
+                    }
+                    if (flag == true) {
+                        var food = new Food(id);
                         order.push(food);
                     }
                     idd.push(id);
                 }
-                addlist('eatlist',order);
+                addlist('eatlist', order);
                 return order;
             },
         }
 
-    function Food(ID){
+        function Food(ID) {
             //this.ID=Math.floor(Math.random()*3)+1; // [n,m] 范围内的随机整数  Math.floor(Math.random() * (m - n + 1)) + n;;
-            if(ID==1){
-                this.name="鱼香肉丝";
-                this.cost=20;
-                this.price=30;
-                this.time=3;
+            if (ID == 1) {
+                this.name = "鱼香肉丝";
+                this.cost = 20;
+                this.price = 30;
+                this.time = 3;
             }
-            if(ID==2){
-                this.name="龙井虾仁";
-                this.cost=40;
-                this.price=60;
-                this.time=4;
+            if (ID == 2) {
+                this.name = "龙井虾仁";
+                this.cost = 40;
+                this.price = 60;
+                this.time = 4;
             }
-            if(ID==3){
-                this.name="油焖大虾";
-                this.cost=60;
-                this.price=80;
-                this.time=5;
+            if (ID == 3) {
+                this.name = "油焖大虾";
+                this.cost = 60;
+                this.price = 80;
+                this.time = 5;
             }
-    }
-        switch(role){
+        }
+        switch (role) {
             case "Restaurant":
                 return new Restaurant();
                 break;
 
             case "Waiter":
-                return Onewaiter.getInstance(ID,name,3000);
+                return Onewaiter.getInstance(ID, name, 3000);
                 break;
-            
+
             case "Cook":
-                return Onecook.getInstance(ID,name,10000);
+                return Onecook.getInstance(ID, name, 10000);
                 break;
             case "Customer":
                 return new Customer();
@@ -263,238 +280,243 @@ function factory(role,ID,name){
                 break;
         }
     }
-    var restaurant=factory("Restaurant");
-    var waiter=factory("Waiter",restaurant.stafflist.length+1,"Jenny");
-    restaurant.recruit('Jenny',1);
-    var cook=factory("Cook",restaurant.stafflist.length+1,"Jack");
-    restaurant.recruit('Jack',2);
-    var money=document.getElementById("money"); //餐厅余额
-    money.innerHTML=restaurant.money; 
+    var restaurant = factory("Restaurant");
+    var waiter = factory("Waiter", restaurant.stafflist.length + 1, "Jenny");
+    restaurant.recruit('Jenny', 1);
+    var cook = factory("Cook", restaurant.stafflist.length + 1, "Jack");
+    restaurant.recruit('Jack', 2);
+    var money = document.getElementById("money"); //餐厅余额
+    money.innerHTML = restaurant.money;
     console.log('开始营业');
-   
-    function waiterMove(direction){//服务员移动
-        if(direction==1)//从左向右移动
-            {
-                var right=0;
-                var inter=setInterval(() => {
-                    right+=0.8;
-                    picwaiter.style.margin="0 0 0 "+right+"%";
-                    if(right>=80){
-                        clearInterval(inter);
-                    }
-                }, 10);
-            }
-        if(direction==2)//从右向左
-        {   var left=80;
-                var inter=setInterval(() => {
-                    left-=0.8;
-                    picwaiter.style.margin="0 0 0 "+left+"%";
-                    if(left<=1){
-                        clearInterval(inter);
-                    }
-                }, 10);
-            }  
+
+    function waiterMove(direction) { //服务员移动
+        if (direction == 1) //从左向右移动
+        {
+            var right = 0;
+            var inter = setInterval(() => {
+                right += 0.8;
+                picwaiter.style.margin = "0 0 0 " + right + "%";
+                if (right >= 80) {
+                    clearInterval(inter);
+                }
+            }, 10);
         }
-    function updateResMoney(cost){//更新餐厅金额
-        var money=document.getElementById("money");         
-        var m=Number(money.innerHTML);
-        money.innerHTML=m-cost;
+        if (direction == 2) //从右向左
+        {
+            var left = 80;
+            var inter = setInterval(() => {
+                left -= 0.8;
+                picwaiter.style.margin = "0 0 0 " + left + "%";
+                if (left <= 1) {
+                    clearInterval(inter);
+                }
+            }, 10);
+        }
+    }
+
+    function updateResMoney(cost) { //更新餐厅金额
+        var money = document.getElementById("money");
+        var m = Number(money.innerHTML);
+        money.innerHTML = m - cost;
 
     }
-   function addlist(listn,arr){ //添加菜单 listn为要添加li的ul的id
-        var list=document.getElementById(listn);
-        for(let i=0;i<arr.length;i++){
-            var li=document.createElement("li");
-            li.innerHTML=arr[i].name+'(<span>还未上</span>)';
+
+    function addlist(listn, arr) { //添加菜单 listn为要添加li的ul的id
+        var list = document.getElementById(listn);
+        for (let i = 0; i < arr.length; i++) {
+            var li = document.createElement("li");
+            li.innerHTML = arr[i].name + '(<span>还未上</span>)';
             list.appendChild(li);
         }
-   }
-   function interval(a){ //顾客到来时间计时 顾客点菜时间计时
-        var chefStatus=document.getElementById("chefStatus"); //厨师状态
-        var cusStatus=document.getElementById("cusStatus");//顾客状态
-        var timeleft2=document.getElementById("timeleft2");
-        var timeleft1=document.getElementById("timeleft1");
-        if(a==1){
-            var t=2.0.toFixed(1);
-                var interval=setInterval(() => {
-                    cusStatus.innerHTML='顾客即将到来';
-                    timeleft2.innerHTML=t;
-                    t=(t-0.1).toFixed(1);
-                    if(t<0) {
-                        clearInterval(interval); 
-                        cusStatus.innerHTML='顾客即将开始点菜';
-                    }
-                }, 100);
+    }
+
+    function interval(a) { //顾客到来时间计时 顾客点菜时间计时
+        var chefStatus = document.getElementById("chefStatus"); //厨师状态
+        var cusStatus = document.getElementById("cusStatus"); //顾客状态
+        var timeleft2 = document.getElementById("timeleft2");
+        var timeleft1 = document.getElementById("timeleft1");
+        if (a == 1) {
+            var t = 2.0.toFixed(1);
+            var interval = setInterval(() => {
+                cusStatus.innerHTML = '顾客即将到来';
+                timeleft2.innerHTML = t;
+                t = (t - 0.1).toFixed(1);
+                if (t < 0) {
+                    clearInterval(interval);
+                    cusStatus.innerHTML = '顾客即将开始点菜';
+                }
+            }, 100);
         }
-        if(a==2){
-            var t=2.0.toFixed(1);
-                                var interval=setInterval(() => {
-                                    cusStatus.innerHTML='顾客即将开始点菜';
-                                    timeleft2.innerHTML=t;
-                                    t=(t-0.1).toFixed(1);
-                                    if(t<0) {
-                                        clearInterval(interval); 
-                                        cusStatus.innerHTML='顾客开始点菜';
-                                    }
-                                }, 100);
+        if (a == 2) {
+            var t = 2.0.toFixed(1);
+            var interval = setInterval(() => {
+                cusStatus.innerHTML = '顾客即将开始点菜';
+                timeleft2.innerHTML = t;
+                t = (t - 0.1).toFixed(1);
+                if (t < 0) {
+                    clearInterval(interval);
+                    cusStatus.innerHTML = '顾客开始点菜';
+                }
+            }, 100);
         }
-        if(a==3){
-            var t=2.0.toFixed(1);
-                var interval=setInterval(() => {
-                    cusStatus.innerHTML='顾客点菜中';
-                    timeleft2.innerHTML=t;
-                    t=(t-0.1).toFixed(1);
-                    if(t<0) {
-                        clearInterval(interval); 
-                        cusStatus.innerHTML='点完菜';
-                    }
-                }, 100);
+        if (a == 3) {
+            var t = 2.0.toFixed(1);
+            var interval = setInterval(() => {
+                cusStatus.innerHTML = '顾客点菜中';
+                timeleft2.innerHTML = t;
+                t = (t - 0.1).toFixed(1);
+                if (t < 0) {
+                    clearInterval(interval);
+                    cusStatus.innerHTML = '点完菜';
+                }
+            }, 100);
         }
-   } 
-   function cookInterval(time,name){ //厨师做每一个菜计时
-        var chefStatus=document.getElementById("chefStatus"); //厨师状态
-        var timeleft1=document.getElementById("timeleft1");
-        var cooklist=document.getElementById("cooklist"); //厨师烹饪的菜单
-        var t=time.toFixed(1);
-        var interval=setInterval(() => {
-        chefStatus.innerHTML='正在做'+name;
-        timeleft1.innerHTML=t;
-        t=(t-0.1).toFixed(1);
-        if(t<0) {
-            
-            chefStatus.innerHTML='做完了';
-            cooklist.removeChild(cooklist.childNodes[1]);
-            clearInterval(interval); 
-        }
-    }, 100);
-  }
-  function eatInterval(name,i){//顾客吃每一个菜计时
-        var eatlist=document.getElementById("eatlist");
-        var cusStatus=document.getElementById("cusStatus");//顾客状态
-        var timeleft2=document.getElementById("timeleft2");
-        cusStatus.innerHTML='正在吃'+name;
-        eatlist.getElementsByTagName('span')[i].innerHTML='已上菜';
-        var t=3.0.toFixed(1);
-        var interval=setInterval(() => {
-        timeleft2.innerHTML=t;
-        t=(t-0.1).toFixed(1);
-        if(t<0) {
-            clearInterval(interval); 
-            //cusStatus.innerHTML='吃完了';
-        }
-    }, 100);
- }
- function payInterval(sum){
-        var cusStatus=document.getElementById("cusStatus");//顾客状态
-        var timeleft2=document.getElementById("timeleft2");
-        var eatlist=document.getElementById("eatlist");
-        eatlist.innerHTML="顾客菜单：";
-        cusStatus.innerHTML='支付中';
-        var t=2.0.toFixed(1);
-        var interval=setInterval(() => {
-        timeleft2.innerHTML=t;
-        t=(t-0.1).toFixed(1);
-        if(t<0) {
-            clearInterval(interval); 
-            updateResMoney(-sum);
-            seat.src="img/seat.jpg";
-            Procedure();
-        }
-    }, 100);
- }
-Procedure();
- function Procedure(){
-        let p1=Promise.resolve();
-            p1=p1.then(()=>{
-                return new Promise(function(resolve,reject){
-                        interval(1);
-                        setTimeout(
-                            function(){
-                                console.log("过了2秒，顾客来了！");
-                                var seat=document.getElementById("seat");
-                                seat.src="img/custom.jpg";
-                                waiterMove(1);//服务员移动到顾客位置
-                                interval(2);
-                                resolve();
-                            },2000)
-                        
-                
-                })
-                }).then(()=>{
-                        return new Promise((resolve,reject)=>{
-                            setTimeout(
-                            function(){
-                                console.log('过了2秒，顾客开始点菜');
-                                interval(3);
-                                //顾客菜单
-                                resolve();
-                            },2000);
-                        })
-                        
-                }).then(()=>{ 
-                    return new Promise((resolve,reject)=>{
-                            setTimeout(
-                            function(){
-                                console.log('过了2秒，顾客点完菜');
-                                var customer=factory("Customer");
-                                var order=customer.order();   //顾客点菜
-                                var cost=0;                   //菜品cost
-                                for(var i=0;i<order.length;i++){
-                                    cost+=order[i].cost;
-                                }
-                                updateResMoney(cost);        //更新餐厅金额
-                                resolve(order);
-                            },2000);
-                        })
-                    
-                }).then((food)=>{
-                    return new Promise((resolve,reject)=>{
-                        waiter.finishwork(food);//服务员传菜单
-                        setTimeout(
-                        function(){
-                            resolve(food);         //服务员传菜单需要1s 1s后厨师开始做菜
-                        },1000)
-                    })
-                }).then((food)=>{
-                        let p2=Promise.resolve();
-                        let p3=Promise.resolve();
-                        let sum=0;
-                        for(let i=0;i<food.length;i++){
-                            sum+=food[i].price;
-                            p2=p2.then(()=>{    //厨师做菜
-                                cookInterval(food[i].time,food[i].name);
-                                return new Promise((resolve,reject)=>{
-                                    setTimeout(() => {
-                                        
-                                        resolve(food[i].name);
-                                    }, food[i].time*1000);
-                                })
-                            }).then((val)=>{
-                                cook.finishwork(val);   //厨师做完一个菜
-                                waiter.finishwork(2);   //服务员上菜
-                                return new Promise((resolve,reject)=>{
-                                    setTimeout(() => {
-                                        resolve(val);   
-                                    }, 1000);
-                                })
-                            }).then((val)=>{              //上菜 
-                                    eatInterval(val,i);
-                                    if(i==food.length-1){
-                                        return new Promise((resolve,reject)=>{
-                                            setTimeout(() => {    //最后一个菜吃完结账
-                                                resolve(sum);
-                                            }, 3000);
-                                        }).then(()=>{
-                                            payInterval(sum);
-                                        })
-                                    }
-                            })
+    }
+
+    function cookInterval(time, name) { //厨师做每一个菜计时
+        var chefStatus = document.getElementById("chefStatus"); //厨师状态
+        var timeleft1 = document.getElementById("timeleft1");
+        var cooklist = document.getElementById("cooklist"); //厨师烹饪的菜单
+        var t = time.toFixed(1);
+        var interval = setInterval(() => {
+            chefStatus.innerHTML = '正在做' + name;
+            timeleft1.innerHTML = t;
+            t = (t - 0.1).toFixed(1);
+            if (t < 0) {
+
+                chefStatus.innerHTML = '做完了';
+                cooklist.removeChild(cooklist.childNodes[1]);
+                clearInterval(interval);
+            }
+        }, 100);
+    }
+
+    function eatInterval(name, i) { //顾客吃每一个菜计时
+        var eatlist = document.getElementById("eatlist");
+        var cusStatus = document.getElementById("cusStatus"); //顾客状态
+        var timeleft2 = document.getElementById("timeleft2");
+        cusStatus.innerHTML = '正在吃' + name;
+        eatlist.getElementsByTagName('span')[i].innerHTML = '已上菜';
+        var t = 3.0.toFixed(1);
+        var interval = setInterval(() => {
+            timeleft2.innerHTML = t;
+            t = (t - 0.1).toFixed(1);
+            if (t < 0) {
+                clearInterval(interval);
+                //cusStatus.innerHTML='吃完了';
+            }
+        }, 100);
+    }
+
+    function payInterval(sum) {
+        var cusStatus = document.getElementById("cusStatus"); //顾客状态
+        var timeleft2 = document.getElementById("timeleft2");
+        var eatlist = document.getElementById("eatlist");
+        eatlist.innerHTML = "顾客菜单：";
+        cusStatus.innerHTML = '支付中';
+        var t = 2.0.toFixed(1);
+        var interval = setInterval(() => {
+            timeleft2.innerHTML = t;
+            t = (t - 0.1).toFixed(1);
+            if (t < 0) {
+                clearInterval(interval);
+                updateResMoney(-sum);
+                seat.src = "img/seat.jpg";
+                Procedure();
+            }
+        }, 100);
+    }
+    Procedure();
+
+    function Procedure() {
+        let p1 = Promise.resolve();
+        p1 = p1.then(() => {
+            return new Promise(function (resolve, reject) {
+                interval(1);
+                setTimeout(
+                    function () {
+                        console.log("过了2秒，顾客来了！");
+                        var seat = document.getElementById("seat");
+                        seat.src = "img/custom.jpg";
+                        waiterMove(1); //服务员移动到顾客位置
+                        interval(2);
+                        resolve();
+                    }, 2000)
+
+
+            })
+        }).then(() => {
+            return new Promise((resolve, reject) => {
+                setTimeout(
+                    function () {
+                        console.log('过了2秒，顾客开始点菜');
+                        interval(3);
+                        //顾客菜单
+                        resolve();
+                    }, 2000);
+            })
+
+        }).then(() => {
+            return new Promise((resolve, reject) => {
+                setTimeout(
+                    function () {
+                        console.log('过了2秒，顾客点完菜');
+                        var customer = factory("Customer");
+                        var order = customer.order(); //顾客点菜
+                        var cost = 0; //菜品cost
+                        for (var i = 0; i < order.length; i++) {
+                            cost += order[i].cost;
                         }
+                        updateResMoney(cost); //更新餐厅金额
+                        resolve(order);
+                    }, 2000);
+            })
+
+        }).then((food) => {
+            return new Promise((resolve, reject) => {
+                waiter.finishwork(food); //服务员传菜单
+                setTimeout(
+                    function () {
+                        resolve(food); //服务员传菜单需要1s 1s后厨师开始做菜
+                    }, 1000)
+            })
+        }).then((food) => {
+            let p2 = Promise.resolve();
+            let p3 = Promise.resolve();
+            let sum = 0;
+            for (let i = 0; i < food.length; i++) {
+                sum += food[i].price;
+                p2 = p2.then(() => { //厨师做菜
+                    cookInterval(food[i].time, food[i].name);
+                    return new Promise((resolve, reject) => {
+                        setTimeout(() => {
+
+                            resolve(food[i].name);
+                        }, food[i].time * 1000);
+                    })
+                }).then((val) => {
+                    cook.finishwork(val); //厨师做完一个菜
+                    waiter.finishwork(2); //服务员上菜
+                    return new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            resolve(val);
+                        }, 1000);
+                    })
+                }).then((val) => { //上菜 
+                    eatInterval(val, i);
+                    if (i == food.length - 1) {
+                        return new Promise((resolve, reject) => {
+                            setTimeout(() => { //最后一个菜吃完结账
+                                resolve(sum);
+                            }, 3000);
+                        }).then(() => {
+                            payInterval(sum);
+                        })
+                    }
                 })
             }
+        })
+    }
+</script>
 
-            
-              
-       
-  </script>
 </html>

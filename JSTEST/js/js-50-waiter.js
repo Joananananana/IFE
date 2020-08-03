@@ -41,7 +41,6 @@ function waitforServefood() {
                             break;
                         }
                     }
-                    console.log(ff)
                     if (ff == true) {
                         clearInterval(interval2);
                         cusStatus.innerHTML = '吃完了准备结账';
@@ -56,7 +55,6 @@ function waitforServefood() {
                                 seatpay[foodl[3]] = 0;
                                 cusStatus.innerHTML = '顾客离开';
                                 customerleaving(foodl[3]);
-        
                             }
                         }, 100);
                     }

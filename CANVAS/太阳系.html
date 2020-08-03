@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <canvas id='canvas' width="300" height="300"></canvas>
+    <script> 
+    /** @type {HTMLCanvasElement} */
+        var sun = new Image(); //创建image对象
+        var moon = new Image();
+        var earth = new Image();
+
+        function init() {
+            sun.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png';
+            moon.src = 'https://mdn.mozillademos.org/files/1443/Canvas_moon.png';
+            earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png';
+            window.requestAnimationFrame(draw);//你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行
+        }
+        function draw(){
+            var ctx=document.getElementById('canvas').getContext('2d');
+            //谁先画,谁在上方
+            ctx.globalCompositeOperation='destination-over'//globalCompositeOperation 属性设置或返回如何将一个源（新的）图像绘制到目标（已有）的图像上。
+            ctx.clearRect(0,0,300,300);     //要更新动画, 必须清空画布clear canvas
+            ctx.fillStyle='rgba(0,0,0,0.4)';
+            ctx.strokeStyle='rgba(0,153,255,0.4)';
+            ctx.save();//保存状态 栈1 = 最初状态,原点在(0,0),没有移动过
+            ctx.translate(150,150);//重新映射画布上的 (0,0) 位置
+
+            //Earth
+            var time=new Date();
+            //此图中地球公转周期60s 
+            ctx.rotate(((2*Math.PI)/60*time.getSeconds()+((2*Math.PI)/60000)*time.getMilliseconds()))   // 	顺时针旋转当前绘图 旋转角度，以弧度计
+            ctx.translate(105,0);//第二次移动原点,(150,150)水平向右移动105,把地球放在 绘线上
+            ctx.fillRect(0,-12,50,24);// 画1个矩形,作为地球图形上的另一半遮盖住,当作阴影 Shadow   x,y矩形左上角坐标
+            ctx.drawImage(earth,-12,-12); //向画布上绘制图像、画布或视频 context.drawImage(img,x,y);
+
+            //Moon
+            ////此图中月球公转周期6s 
+            ctx.save();   //保存当前的状态 栈2
+            ctx.rotate(((2*Math.PI)/6*time.getSeconds()+((2*Math.PI)/6000)*time.getMilliseconds()));
+            ctx.translate(0,28.5);//第三次 移动原点,(150+105,150)下移 28.5 (150+105,150+28.5)
+            ctx.drawImage(moon,-3.5,-3.5);
+
+             //画地球旋转轨道
+            ctx.restore();   //恢复状态,当前状态=栈2
+
+            ctx.restore();//恢复状态,当前状态=栈1=最初状态 (原点没有移动过)
+            ctx.beginPath();
+            ctx.arc(150,150,105,0,Math.PI*2,false);// Earth orbit,关联关系,半径 = 地球相对第二原点(150,150) 向右移动的距离
+            ctx.stroke();
+            //画太阳
+            ctx.drawImage(sun,0,0,300,300);
+            window.requestAnimationFrame(draw);
+        }
+        init();
+    </script>
+</body>
+
+</html>

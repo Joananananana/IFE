@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+ <html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            #canvas{
+                position:relative;
+            }
+            .canvas{
+                position: absolute;
+                top:0;
+                left: 0;
+            }
+            .canvas:nth-of-type(2){
+               z-index: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <div id='all'></div>
+        <div id="canvas">
+            <canvas class="canvas" id="bottom" width="1000px" height="700px" style="background-color: rgb(32, 117, 69);"></canvas>
+            <canvas class="canvas" id="top" width="1000px" height="700px" style="background-color: rgba(255, 255, 255, 0);"></canvas>
+        </div>
+        
+        <script src="js/js-54.js" async defer></script>
+        <script src="js/js-54-canvas.js" async defer></script>
+    </body>
+</html>

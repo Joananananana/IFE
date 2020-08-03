@@ -4,7 +4,6 @@ function customerin(seatnum) { //顾客入座
     seat.src = "img/custom.jpg";
     waitforOrder(seatnum); //将座位号传入
 }
-
 function waitforOrder(seatnum) {
     var cusStatus = document.querySelectorAll("#cusStatus")[seatnum];
     var timeleft2 = document.querySelectorAll("#timeleft2")[seatnum];
@@ -41,7 +40,6 @@ function waitforOrder(seatnum) {
             }, 4000);                //2s后点完菜
         })
     }).then((seatnum) => {
-      //  let seatnum = val;
         let customer = factory("Customer");
         let order = customer.order(seatnum); //顾客点菜
         var cost = 0;                               //菜品cost
@@ -71,7 +69,6 @@ function waitforOrder(seatnum) {
 function customerleaving(seatnum) { //顾客离开 
     console.log(seatnum + '离开')
     seatinfo[seatnum] = '';
-    console.log(seatinfo)
     var customers = document.getElementById("customer");
     var thiscus = customers.querySelectorAll('img')[seatnum];
     thiscus.src = "img/seat.jpg";

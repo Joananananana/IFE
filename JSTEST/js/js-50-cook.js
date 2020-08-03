@@ -43,11 +43,9 @@ function waitforCook() {
             //厨师j做菜品i 清空厨师图标旁的菜品 厨师状态设为0  设置的定时器时间比菜品烹饪时间略长   
             setTimeout(() => {
                 console.log('厨师' + j + '做好了' + context);
-
                 //添加待上菜 servefoodlist
-                servefoodlist.push(addservelist); //console.log(servefoodlist);
-                cooks.list[j].setStatus(0); // waitforCook(); //释放厨师时，再继续查看是否做菜
-                // waitforServefood();
+                servefoodlist.push(addservelist);
+                cooks.list[j].setStatus(0);//释放厨师时，再继续查看是否做菜
             }, t * 1200);
         }
     }

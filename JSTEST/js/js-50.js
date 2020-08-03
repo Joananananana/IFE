@@ -218,7 +218,7 @@ function custumercoming() { //随机到达客人
                 break;
             }
         }
-        console.log(flag + '座位');
+       // console.log(flag + '座位');
         if (flag == false) { //没有空座位 排队人数小于10  进入排队队列
             if (cuswaitlist.length < 9) {
                 cuswaitlist.push(customer);

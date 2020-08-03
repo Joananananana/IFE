@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html class="no-js"> 
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+        <script >
+            window.onload=function(){
+                var canvas=document.getElementById("canvas")
+                canvas.width=800
+                canvas.height=800
+                var ctx=canvas.getContext('2d')
+
+                ctx.beginPath()
+                ctx.fillStyle="black"
+                ctx.fillRect(0,0,canvas.width,canvas.height)
+
+                ctx.beginPath()
+                ctx.arc(400,400,150,0,Math.PI*2)
+                ctx.fillStyle="#fff"
+                ctx.fill()
+                ctx.clip()
+
+                ctx.font="bold 150px Arial"
+                ctx.textAlign   ="center"
+                ctx.textBaseline="middle"
+                ctx.fillStyle="#058"
+                ctx.fillText("canvas",canvas.width/2,canvas.height/2)
+
+
+
+
+
+            }
+        </script>
+    </body>
+</html>
